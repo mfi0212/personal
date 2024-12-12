@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BsGuardian</title>
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/gW8Py0B/BS.png">
+           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffffcb;font-family: 'Poppins', sans-serif;
+}
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #181818;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      color: #bababa;
+    font-size: 15px;
+    margin: 0;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-weight: 300;
+    }
+
+    .timer {
+      font-size: 59px;
+    color: white;
+    padding: 0px 50px;
+    width: fit-content;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    }
+
+    button{
+      margin: 10px 0;
+    padding: 8px 15px;
+    background-color: #003cff;
+    color: white;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    width: 180px;
+
+    }
+
+    .btn:hover {
+      background-color: #2e2e2e;
+    }
+
+    .text-section {
+      margin-top: 60px;
+    font-size: 20px;
+    line-height: 1.8;
+    padding-left: 0px;
+    font-weight: 100;
+    }
+
+    .text-section a {
+      display: block;
+      margin: 10px 0;
+      color: #5a5a5a;
+      text-decoration: none;
+    }
+    .text-section a:hover{
+      color: white;
+    }
+    .help {
+      margin-top: auto;
+      font-size: 0.9em;
+      color: #b0bec5;
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1d1d1d;
+    padding: 20px;
+    border: solid 1px #515151;
+    border-radius: 16px;
+    z-index: 1000;
+    width: 80%;
+    font-size: 13px;
+    color: #adacac;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+      color: white;
+      font-size: 18px;
+    }
+
+    .popup button {
+      margin-top: 20px;
+      padding: 5px 15px;
+      background-color: #0041ff;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    div#routineList {
+    height: 200px;
+    overflow: scroll;
+}
+    /* Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.893);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <h1><a href="https://blackswan19.github.io/BS/main">all</a></h1>
+
+  <div class="timer" id="timer">00:00:00</div>
+
+  <button class="btn" id="startBtn">Start Stopwatch</button>
+  <button class="btn" id="resetBtn">Reset Stopwatch</button>
+
+  <div class="text-section">
+    <a href="checkin.html">Check my routines</a>
+    <a href="todo.html">Have to do's</a>
+    <a href="savenotes.html">Important note</a>
+    <a href="https://blackswan19.github.io/bscrop/reminder.html">Reminder</a>
+    <a href="https://ramakrishna0212.github.io/blackswanfashion/main.html">Style</a>
+<a href="bs-rora.html"><button>Rora</button></a>
+
+<script>
+  // Load saved link on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedLink = localStorage.getItem("userLink");
+    if (savedLink) {
+      document.getElementById("bookLink").href = savedLink;
+    }
+  });
+
+  // Update and save the new link
+  function updateLink() {
+    const newUrl = prompt("Enter the new URL:");
+    if (newUrl) {
+      document.getElementById("bookLink").href = newUrl;
+      localStorage.setItem("userLink", newUrl); // Save the link
+      alert("Link updated and saved!");
+    }
+  }
+</script>
+
+  </div>
+  <a href="https://blackswan19.github.io/Educate/quote.html" style="    color: white;
+  margin-top: 30px;
+">Quote</a>
+  <div class="help" id="helpBtn">Help..?</div>
+
+  <!-- Popup HTML -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h2>Welcome!</h2>
+    <p>BsGuardian is a personal tool that helps you track your daily routine and keep an eye on your weekly and monthly spending. It also assigns you simple,medium and hard tasks to make sure you stay on healty track. If you don't complete your tasks, BsGuardian gives you additional tasks as a form of motivation or punishment.</p>
+    <button id="closePopup">Close</button>
+  </div>
+
+  <script>
+    // Get the timer element, start button, and reset button
+    const timerElement = document.getElementById('timer');
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+  
+    // Create a variable to store the interval ID
+    let intervalId;
+  
+    // Function to format the time
+    function formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secondsLeft = seconds % 60;
+  
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+    }
+  
+    // Function to start the timer
+    function startTimer() {
+      let seconds = parseInt(localStorage.getItem('timerSeconds')) || 0;
+      intervalId = setInterval(() => {
+        seconds++;
+        timerElement.textContent = formatTime(seconds);
+        localStorage.setItem('timerSeconds', seconds);
+      }, 1000);
+    }
+  
+    // Function to reset the timer
+    function resetTimer() {
+      clearInterval(intervalId);
+      timerElement.textContent = '00:00:00';
+      localStorage.removeItem('timerSeconds');
+    }
+  
+    // Event listeners for the buttons
+    startBtn.addEventListener('click', startTimer);
+    resetBtn.addEventListener('click', resetTimer);
+
+    // Popup functionality
+    const helpBtn = document.getElementById('helpBtn');
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    const closePopup = document.getElementById('closePopup');
+
+    helpBtn.addEventListener('click', () => {
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    closePopup.addEventListener('click', () => {
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', () => {
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

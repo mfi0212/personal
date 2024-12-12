@@ -1,0 +1,154 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BsGuardian</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffffcb;font-family: 'Poppins', sans-serif;
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #181818;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+
+        .punishment-box {
+            background-color: #282828;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            text-align: center;
+            white-space: pre-wrap; /* Preserve whitespace for formatting */
+            margin-bottom: 20px;
+            border: solid 1px gray;
+        }
+
+        h2 {
+            color: #fff;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-done, .btn-start {
+            background-color: #0e4bff;
+            color: white;
+            padding: 10px 31px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .btn-done:hover, .btn-start:hover {
+            background-color: #0e4affb0;
+        }
+
+        .goal-section {
+            text-align: center;
+    padding: 15px;
+    background: #282828;
+    overflow-y: auto;
+    max-height: 300px;
+    position: relative;
+    top: 3em;
+        }
+
+        .goal-section input {
+            padding: 9px;
+            margin-right: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+            background: #9f9f9f;
+            outline: none;
+            border: none;
+        }
+        ::-webkit-scrollbar{
+    width: 0px;
+    background-color: transparent;
+}
+        .goal-section input:focus {
+            border-color: #4CAF50; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .goal-info {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff9800;
+        }
+
+        .punishment {
+            position: fixed;
+            top: 5%;
+            padding: 20px;
+            background: #3c3c3c;
+        }
+
+        .goal-item {
+            margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #181818;
+    padding: 8px;
+    border-left: solid 5px #0e4bff;
+    font-size: 13px;
+        }
+
+        .btn-delete {
+            background-color: #0e4bff;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 900;
+        }
+
+        .btn-delete:hover {
+            background-color: #0e4affb0;
+        }
+        .punishment{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="punishment">
+        <h2>You have to do..!</h2>
+        <div class="punishment-box" id="punishment"></div>
+        <button class="btn-done" id="doneButton">Done</button>
+    </div>
+
+    <div class="goal-section">
+        <h2>You have to do..!</h2>
+        <input type="text" id="goalInput" placeholder="Enter which you have to do...">
+        <button class="btn-start" id="startButton">Start</button>
+        <div id="goalList"></div>
+    </div>
+
+    <script src="todo.js">
+        
+    </script>
+
+</body>
+</html>

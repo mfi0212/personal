@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BsGuardian</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;600&display=swap');
+        * {
+            color: rgb(255, 255, 255);
+            font-family: "Red Hat Display", sans-serif;
+            letter-spacing: 0.5px;
+        }
+        body {
+            background-color: #181818;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .check-in-section {
+            margin: 20px;
+            padding: 20px;
+            background: #282828;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        form#routineForm {
+    height: 200px;
+    overflow: scroll;
+    margin-top: 20px;
+}
+h2 {
+    text-align: center;
+    font-weight: 300;
+}
+::-webkit-scrollbar{
+    width: 0px;
+    background-color: transparent;
+}
+        .routine-item {
+            margin: 10px 0;
+            background: #181818;
+            padding: 15px;
+            border-left: solid 4px #0e4bff;
+            text-align: end;
+        }
+        .routine-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #0e4bff;
+            color: white;
+            padding: 10px 34px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .btn-submit:hover {
+            background-color: #0e4affb0;
+        }
+        .result-message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="check-in-section">
+        <h2>Routine Check-in</h2>
+        <form id="routineForm"></form>
+        <button class="btn-submit" id="submitBtn">Submit</button>
+        <div class="result-message" id="resultMessage"></div>
+    </div>
+
+    <script>
+        const routineForm = document.getElementById('routineForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultMessage = document.getElementById('resultMessage');
+    
+        let routines = JSON.parse(localStorage.getItem('userRoutines')) || [];
+        const punishments = [
+            "Drink 2 bottles of water.",
+            "Sit 1 hour outside.",
+            "Take a 15-minute walk.",
+            "Don't sit on bed for 1 hour.",
+            "Spend 1 hour outside the room.",
+        ];
+    
+        // Function to convert 24-hour format to 12-hour format
+        function convertTo12HourFormat(time) {
+            const [hour, minute] = time.split(':');
+            let hour12 = hour % 12 || 12; // Convert hour to 12-hour format
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            return `${hour12}:${minute} ${ampm}`;
+        }
+    
+        function displayCheckInRoutines() {
+            routineForm.innerHTML = '';
+            routines.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'routine-item';
+                const checked = item.checked ? 'checked' : '';
+    
+                // Convert item.time to 12-hour format before displaying
+                const time12Hour = convertTo12HourFormat(item.time);
+                div.innerHTML = `
+                    <input type="checkbox" id="routine${index}" ${checked}>
+                    <label for="routine${index}">${time12Hour} - ${item.routine}</label>
+                `;
+                routineForm.appendChild(div);
+    
+                const checkbox = document.getElementById(`routine${index}`);
+                checkbox.addEventListener('change', () => {
+                    item.checked = checkbox.checked;
+                    localStorage.setItem('userRoutines', JSON.stringify(routines));
+                });
+            });
+        }
+    
+        submitBtn.addEventListener('click', () => {
+            let allUnchecked = true;
+            routines.forEach((item) => {
+                if (item.checked) {
+                    allUnchecked = false;
+                }
+            });
+    
+            if (allUnchecked) {
+                const randomPunishment = punishments[Math.floor(Math.random() * punishments.length)];
+                resultMessage.textContent = `You didn’t complete any tasks. Punishment: ${randomPunishment}`;
+            } else {
+                resultMessage.textContent = "Good job!";
+            }
+        });
+    
+        displayCheckInRoutines();
+    </script>
+    <div class="add" style="position: fixed;bottom: 10px;">
+        <a href="routine.html"><button>Add routines</button></a>
+    </div>
+</body>
+</html>

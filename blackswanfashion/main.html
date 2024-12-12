@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFM</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/NrRQkgh/titlog.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
+<style>
+  body {
+    font-family: "Noto Sans", sans-serif;
+  }
+body{
+    background-color: white;
+}
+.logo{
+    position: relative;
+    left: 1%;
+    width: 11%;
+    padding-top: 1%;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.myImg {
+    margin: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.image img:hover{
+    padding-top: 4%;
+    border-radius: 8px;
+}
+.img-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+img{
+    filter: grayscale(100%);
+}
+.image__title{
+    position: relative;
+    left: 26%;
+    background: #bbbbbb;
+    width: 40%;
+    padding: 13px 13px;
+    border-radius: 6px;
+    text-align: center; 
+}
+.image__title a:hover{
+    color: white;
+}
+@media screen and (max-width: 760px){
+    .logo{
+        width: 39%;
+    }
+    
+    .image img:hover{
+        padding-top: 0%;
+        border-radius: 8px;
+    }
+    .img-container {
+        display: inline-block;
+        width: 53%;
+        position: relative;
+        top: 10%;
+        left: 18%;
+    }
+    
+.modal{
+  display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 50px;
+    left: -67px;
+    top: -87px;
+    width: 135%;
+    height: 108%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+}
+}
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="logo.png" width="40%">
+    </div>
+    <div class="img-container">
+        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+            <a href="oldmoney/all.html"><img class="myImg" src="https://i.pinimg.com/474x/a1/75/48/a17548badba6b7fcc9d4d20ae53c37b0.jpg" alt="Snow" style="width:100%;max-width:300px"></a>
+			<a href="oldmoney/all.html"><div class="image__title">OLD</a></div>
+		</div> 
+        
+        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+		    <a href="allmens.html"><img class="myImg" src="https://i.pinimg.com/474x/39/f5/80/39f5800407c14703b6d01902cba6c75c.jpg" alt="Snow" style="width:100%;max-width:300px"></a>
+			<a href="allmens.html"><div class="image__title">MEN</a></div>
+		</div>
+
+        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+            <a href="iman.html"><img class="myImg" src="https://i.pinimg.com/474x/21/69/38/2169382b64d3c317327b893eec2dc276.jpg" alt="Snow" style="width:100%;max-width:250px"></a>
+			<a href="iman.html"><div class="image__title">IMAN</a></div>
+		</div>
+    </div>
+</body>
+</html>

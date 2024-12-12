@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
+<title>Document</title>
+<link rel="stylesheet" href="red.css">
+</head>
+<body>
+<div class="all">
+  <div class="logo">
+    <a href="main.html"><img src="https://i.ibb.co/Y34q58B/logo.png" alt="" width="40%"></a>
+  </div>
+    <div class="menu">
+      <a href="all.html">All</a>
+      <a href="formals.html">Formals</a>
+      <a style="text-decoration: underline;">Casual</a>
+    </div>
+    <div class="title">
+      <h1>Casuals</h1>
+    </div>
+  <div class="img-container">
+    
+    <img class="myImg" src="https://i.pinimg.com/564x/b2/ea/60/b2ea60967280f0b4dca3ffda1a7e8036.jpg">
+    <img class="myImg" src="https://i.pinimg.com/564x/b0/74/83/b07483ada78bdf6a063e563fbd0166de.jpg">
+    <img class="myImg" src="https://i.pinimg.com/564x/10/6e/fd/106efda22d98efb268942a92ad97fc74.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/74/76/0e/74760e0bc339bb5c09a5bf0f1a74fcdf.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/8a/e5/df/8ae5dfa229ae4a96eb873d7e70eb0609.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/de/9c/76/de9c76b59e92c79af7dc625f186f8235.jpg" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+  </div>
+
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+</div>
+<script>
+var modal = document.getElementById("myModal");
+var images = document.querySelectorAll(".myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+images.forEach(function(image) {
+  image.addEventListener("click", function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  });
+});
+
+var span = document.getElementsByClassName("close")[0];
+window.onclick = function(event) {
+  if (event.target == modal || event.target == span) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
+</body>
+</html>

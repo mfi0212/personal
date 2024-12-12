@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
+<title>Document</title>
+<link rel="stylesheet" href="red.css">
+</head>
+<body>
+<div class="all">
+  <div class="logo">
+    <a href="D:\blackswanfashion\main.html"><img src="https://i.ibb.co/Y34q58B/logo.png" alt="" width="40%"></a>
+  </div>
+    <div class="menu">
+      <a href="all.html">All</a>
+      <a href="formals.html">Formals</a>
+      <a style="text-decoration: underline;">Casual</a>
+    </div>
+    <div class="title">
+      <h1>Casuals</h1>
+    </div>
+  <div class="img-container">
+    <img class="myImg" src="https://i.pinimg.com/474x/dd/07/94/dd0794916b7e156f299f35413e5d389c.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/b4/b3/49/b4b3499853db8eff60dc17da03eb21f7.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/c4/17/29/c41729e837cc085fe834531f9b965dde.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/01/bb/fe/01bbfe0ef7a262b9891d8242d35d1f7f.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/14/1e/ad/141ead8e4aff02bbb4ab12a0cc7a96c9.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/cb/5f/6d/cb5f6de34221997bd4bd8f3041eaa487.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/28/21/10/2821101d567910947323e39247e9c0a6.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/6d/90/68/6d9068a4cc7ba73825017a4989cb1fe2.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/474x/2a/6a/4b/2a6a4b2f4eca9fce65e4e1dbb9b07fe9.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/b9/0f/3c/b90f3c5e622463d325c032286db67432.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/8b/84/54/8b84540a1b0ebbd0e757097f941afc66.jpg" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+  </div>
+
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+</div>
+<script>
+var modal = document.getElementById("myModal");
+var images = document.querySelectorAll(".myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+images.forEach(function(image) {
+  image.addEventListener("click", function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  });
+});
+
+var span = document.getElementsByClassName("close")[0];
+window.onclick = function(event) {
+  if (event.target == modal || event.target == span) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
+</body>
+</html>

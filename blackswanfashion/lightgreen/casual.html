@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
+<title>Document</title>
+<link rel="stylesheet" href="red.css">
+</head>
+<body>
+<div class="all">
+  <div class="logo">
+    <a href="D:\blackswanfashion\main.html"><img src="https://i.ibb.co/Y34q58B/logo.png" alt="" width="40%"></a>
+  </div>
+    <div class="menu">
+      <a href="all.html">All</a>
+      <a href="formals.html">Formals</a>
+      <a style="text-decoration: underline;">Casual</a>
+    </div>
+    <div class="title">
+      <h1>Casuals</h1>
+    </div>
+  <div class="img-container">
+    <img class="myImg" src="https://i.pinimg.com/564x/7e/fc/5a/7efc5ad6e2fe5ac5a99ff47023916ab7.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/e1/06/08/e10608909bb59ff6d7d4e7a97312b748.jpg" >
+    <img class="myImg" src="https://i.pinimg.com/564x/3c/94/00/3c94000fb6042ebbac3cc71cd0fafbaa.jpg" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+    <img class="myImg" src="" >
+  </div>
+
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+</div>
+<script>
+var modal = document.getElementById("myModal");
+var images = document.querySelectorAll(".myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+images.forEach(function(image) {
+  image.addEventListener("click", function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  });
+});
+
+var span = document.getElementsByClassName("close")[0];
+window.onclick = function(event) {
+  if (event.target == modal || event.target == span) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
+</body>
+</html>
