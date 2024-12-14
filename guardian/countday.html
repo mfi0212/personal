@@ -19,10 +19,13 @@
             margin: 0 auto;
         }
         input, button {
-            padding: 10px;
             margin: 10px 0;
-            width: 100%;
-            color: black;
+    width: 100%;
+    color: #ffffff;
+    background: #3c3c3c;
+    border: none;
+    outline: none;
+    padding: 16px;
         }
         .output {
             margin-top: 20px;
@@ -35,7 +38,7 @@
         <h1>Date Calculator</h1>
         <p>Enter the number of days:</p>
         <input type="number" id="daysInput" placeholder="Enter number of days" min="0">
-        <button onclick="calculateDate()" style="position: fixed;
+        <button onclick="calculateDate()"  style="position: fixed;
         bottom: 0px;
         left: 0px;">Calculate Date</button>
         <div class="output" id="output"></div>
@@ -53,11 +56,13 @@
 
             const days = parseInt(daysInput);
             const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() + days);
+            const futureDate = new Date();
+            futureDate.setDate(currentDate.getDate() + days);
 
-            const futureDate = currentDate.toDateString();
+            const timeDifference = futureDate.getTime() - currentDate.getTime();
+            const daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-            output.textContent = `${futureDate}`;
+            output.textContent = `Date was: ${futureDate.toDateString()}____${daysLeft} days left`;
         }
     </script>
 </body>
