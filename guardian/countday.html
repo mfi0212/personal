@@ -11,7 +11,7 @@
             font-family: "Red Hat Display", sans-serif;
         }
         *{
-            color: white;
+            color: rgb(190, 190, 190);
         }
         body {
             font-family: Arial, sans-serif;
@@ -25,16 +25,21 @@
         }
         input, button {
             margin: 10px 0;
-    width: 100%;
     color: #ffffff;
     background: #3c3c3c;
     border: none;
     outline: none;
-    padding: 16px;
+    padding: 10px;
         }
         .output {
             margin-top: 20px;
-            font-weight: bold;
+    font-weight: bold;
+    background: #0000004d;
+    padding: 10px;
+    text-align: center;
+    border-radius: 13px;
+    position: fixed;
+    bottom: 30px;
         }
         select{
             background-color: #3c3c3c;
@@ -46,7 +51,9 @@
         <h1>Date Calculator</h1>
         <p>Enter the number of days:</p>
         <input type="number" id="daysInput" placeholder="Enter number of days" min="0">
-        <button onclick="calculateDate()">Calculate Date</button>
+        <button onclick="calculateDate()"  style="    position: fixed;
+        top: 65%;
+        right: 0%;">Calculate Date</button>
 
         <p>Or select a date to see how many days it is from today:</p>
         <input type="date" id="dateInput" onchange="calculateDaysFromDate()">
@@ -70,7 +77,7 @@
 
             const futureDate = currentDate.toDateString();
 
-            output.textContent = `The date after ${days} days will be: ${futureDate}`;
+            output.textContent = `Days will be: ${futureDate}`;
         }
 
         function calculateDaysFromDate() {
@@ -90,9 +97,9 @@
             const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
             if (daysDifference >= 0) {
-                output.textContent = `The selected date is ${daysDifference} days from today.`;
+                output.textContent = `Days left: ${daysDifference}.`;
             } else {
-                output.textContent = `The selected date was ${Math.abs(daysDifference)} days ago.`;
+                output.textContent = `Days passed: ${Math.abs(daysDifference)}.`;
             }
         }
     </script>
