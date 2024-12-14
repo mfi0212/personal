@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Calculator</title>
     <style>
+        *{
+            color: white;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            position: fixed;
+            background-color: #282828;
         }
         .container {
             max-width: 400px;
@@ -16,6 +21,8 @@
         input, button {
             padding: 10px;
             margin: 10px 0;
+            width: 100%;
+            color: black;
         }
         .output {
             margin-top: 20px;
@@ -28,7 +35,9 @@
         <h1>Date Calculator</h1>
         <p>Enter the number of days:</p>
         <input type="number" id="daysInput" placeholder="Enter number of days" min="0">
-        <button onclick="calculateDate()">Calculate Date</button>
+        <button onclick="calculateDate()" style="position: fixed;
+        bottom: 0px;
+        left: 0px;">Calculate Date</button>
         <div class="output" id="output"></div>
     </div>
 
@@ -48,7 +57,7 @@
 
             const futureDate = currentDate.toDateString();
 
-            output.textContent = `The date after ${days} days will be: ${futureDate}`;
+            output.textContent = `${futureDate}`;
         }
     </script>
 </body>
