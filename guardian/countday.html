@@ -31,6 +31,9 @@
             margin-top: 20px;
             font-weight: bold;
         }
+        select{
+            background-color: #3c3c3c;
+        }
     </style>
 </head>
 <body>
@@ -38,9 +41,11 @@
         <h1>Date Calculator</h1>
         <p>Enter the number of days:</p>
         <input type="number" id="daysInput" placeholder="Enter number of days" min="0">
-        <button onclick="calculateDate()"  style="position: fixed;
-        bottom: 0px;
-        left: 0px;">Calculate Date</button>
+        <button onclick="calculateDate()">Calculate Date</button>
+
+        <p>Or select a date to see how many days it is from today:</p>
+        <input type="date" id="dateInput" onchange="calculateDaysFromDate()">
+
         <div class="output" id="output"></div>
     </div>
 
@@ -56,13 +61,34 @@
 
             const days = parseInt(daysInput);
             const currentDate = new Date();
-            const futureDate = new Date();
-            futureDate.setDate(currentDate.getDate() + days);
+            currentDate.setDate(currentDate.getDate() + days);
 
-            const timeDifference = futureDate.getTime() - currentDate.getTime();
-            const daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
+            const futureDate = currentDate.toDateString();
 
-            output.textContent = `Date was: ${futureDate.toDateString()}`;
+            output.textContent = `The date after ${days} days will be: ${futureDate}`;
+        }
+
+        function calculateDaysFromDate() {
+            const dateInput = document.getElementById('dateInput').value;
+            const output = document.getElementById('output');
+
+            if (!dateInput) {
+                output.textContent = '';
+                return;
+            }
+
+            const selectedDate = new Date(dateInput);
+            const currentDate = new Date();
+
+            // Calculate the difference in days
+            const timeDifference = selectedDate - currentDate;
+            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            if (daysDifference >= 0) {
+                output.textContent = `The selected date is ${daysDifference} days from today.`;
+            } else {
+                output.textContent = `The selected date was ${Math.abs(daysDifference)} days ago.`;
+            }
         }
     </script>
 </body>
