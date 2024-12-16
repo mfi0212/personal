@@ -56,12 +56,12 @@
   height: 100%;
   overflow: auto;
 
-  background-color: rgb(0,0,0);
+  background-color: rgb(0 0 0 / 85%);
 }
 .myImg{
   width: 100%;
     max-width: 300px;
-    border-radius: 41px;
+    border-radius: 30px;
     padding: 18px;
 }
 .modal-content {
@@ -108,6 +108,8 @@
   }
   .img-container{
     display: table;
+        position: relative;
+        left: -5px;
   }
   .img-container img{
     max-width: 145px;
@@ -117,9 +119,9 @@
   }
   .modal-content {
     margin: auto;
-    width: 73%;
-    max-width: 719px;
-    padding-top: 116px;
+        width: 80%;
+        max-width: 719px;
+        padding-top: 50px;
   }
   .close{
     right: 324px;
@@ -211,7 +213,7 @@
   </div>
 
   <div id="myModal" class="modal">
-    <span class="close">&times;</span>
+    <span class="close"></span>
     <img class="modal-content" id="img01">
     <div id="caption"></div>
   </div>
