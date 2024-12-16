@@ -7,24 +7,19 @@
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/NrRQkgh/titlog.png">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
       <link rel="stylesheet" href="allmens.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
    </head>
    <body>
       <div class="logo">
          <a href="main.html"><img src="https://i.ibb.co/Y34q58B/logo.png" alt="" width="20%"></a>
       </div>
-      <div class="colors">
-         <a href="red/all.html">Red</a>
-         <a href="black/all.html">Black</a>
-         <a href="yellow/all.html">Yellow</a>
-         <a href="green/all.html">Green</a>
-         <a href="gray/all.html">Gray</a>
-         <a href="blue/all.html">Dark blue</a>
-         <a href="lightgreen/all.html">Light green</a>
-         <a href="skyblue/all.html">Sky blue</a>
-         <a href="white/all.html">White</a>
-         <a href="wine/all.html">Wine</a>
-         <a href="pink/all.html">Pink</a>
-      </div>
+      <div class="title">
+         <h1>Style of <br>Men</h1>
+       </div>
+       <div class="add-image">
+         <input id="image-url" type="text" placeholder="Enter image URL">
+         <button id="add-image-btn">Add Image</button>
+       </div>
       <div class="img-container">
          <img class="myImg" src="https://i.pinimg.com/564x/b2/ea/60/b2ea60967280f0b4dca3ffda1a7e8036.jpg">
          <img class="myImg" src="https://i.pinimg.com/564x/b0/74/83/b07483ada78bdf6a063e563fbd0166de.jpg">
@@ -240,7 +235,30 @@
              modal.style.display = "none";
            }
          };
+
       </script>
+      <script>
+      
+         // Add new image dynamically
+         document.getElementById("add-image-btn").addEventListener("click", function() {
+           var url = document.getElementById("image-url").value.trim();
+           if (url) {
+             var imgContainer = document.getElementById("img-container");
+             var newImg = document.createElement("img");
+             newImg.className = "myImg";
+             newImg.src = url;
+             newImg.alt = "You have added";
+             newImg.style.borderRadius = "10px";
+             newImg.style.cursor = "pointer";
+             imgContainer.appendChild(newImg);
+             setupModal(newImg);
+             document.getElementById("image-url").value = ""; // Clear the input field
+           } else {
+             alert("Please enter a valid URL.");
+           }
+         });
+         </script>
+         
    </body>
 </html>
 </body>
