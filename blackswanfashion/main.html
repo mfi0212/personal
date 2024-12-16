@@ -7,84 +7,180 @@
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/NrRQkgh/titlog.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
 <style>
-  body {
-    font-family: "Noto Sans", sans-serif;
-  }
-body{
-    background-color: #333;
+ body {
+  font-family: "Noto Sans", sans-serif;
+  position: fixed;
 }
-.logo{
-    position: relative;
-    left: 1%;
-    width: 11%;
-    padding-top: 1%;
+
+body {
+
+background-color: #333; /* Subtle, clean background */
+margin: 0;
+padding: 0;
+color: #333; /* Text color for readability */
+}
+*{
+  color: white;
+}
+.all {
+text-align: center;
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+.logo img {
+    display: block;
+    width: 13%;
     filter: invert(1);
+}
+.menu {
+margin: 20px 0;
+}
+
+.menu a {
+text-decoration: none;
+color: #555;
+font-weight: bold;
+font-size: 18px;
+padding: 10px 20px;
+border: 2px solid #333;
+border-radius: 5px;
+transition: all 0.3s ease;
+}
+
+.menu a:hover {
+background-color: #333;
+color: #fff;
+}
+.image__title {
+    background: #585858;
+    display: flow;
+    padding: 10px;
+    border-radius: 10px;
+}
+.title h1 {
+font-size: 25px;
+margin: 20px 0;
+line-height: 1.4;
+color: #000000;
+}
+
+.img-container {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+gap: 15px;
+margin: 100px 0;
+padding: 20px;
+}
+.title h1 {
+  color: white;
+  text-align: center;
+}
+.myImg {
+  width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    filter: brightness(0.6);
+}
+
+.modal {
+display: none;
+position: fixed;
+z-index: 1000;
+padding-top: 60px;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgb(0 0 0 / 92%);
+}
+
+.modal-content {
+display: block;
+margin: auto;
+max-width: 80%;
+border-radius: 10px;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.modal img {
+width: 100%;
+}
+
+.close {
+position: absolute;
+top: 20px;
+right: 35px;
+color: #fff;
+font-size: 30px;
+font-weight: bold;
+transition: color 0.3s ease;
+cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+color: #ccc;
+text-decoration: none;
+}
+
+#caption {
+color: #ccc;
+text-align: center;
+padding: 15px;
+font-size: 20px;
+}
+.colors {
+  display: flex
+;
+  overflow: scroll;
+  white-space: nowrap;
+  gap: 6px;
+  padding: 10px;
+
+}
+.colors a{
+  background: #555555;
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 1000px;
+}
+
+.add-image input {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: transparent;
+  outline: none;
+}
+
+.add-image button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #fff;
+  background-color: #565656;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 a{
     text-decoration: none;
-    color: black;
 }
-.myImg {
-    margin: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+.add-image button:hover {
+  background-color: #555;
 }
-.image img:hover{
-    padding-top: 4%;
-    border-radius: 8px;
+.add-image {
+  margin: 20px 0;
+  text-align: center;
 }
-.img-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-img{
-    filter: grayscale(100%);
-}
-.image__title{
-    position: relative;
-    left: 26%;
-    background: #5f5f5f;
-    width: 40%;
-    padding: 13px 13px;
-    border-radius: 6px;
-    text-align: center;
-    color: white;
-}
-.image__title a{
-    color: white;
-}
-@media screen and (max-width: 760px){
-    .logo{
-        width: 39%;
-    }
-    
-    .image img:hover{
-        padding-top: 0%;
-        border-radius: 8px;
-    }
-    .img-container {
-        display: inline-block;
-        width: 53%;
-        position: relative;
-        top: 10%;
-        left: 18%;
-    }
-    
-.modal{
-  display: none;
-    position: fixed;
-    z-index: 9999;
-    padding-top: 50px;
-    left: -67px;
-    top: -87px;
-    width: 135%;
-    height: 108%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-}
-}
+
     </style>
 </head>
 <body>
@@ -92,21 +188,29 @@ img{
         <img src="logo.png" width="40%">
     </div>
     <div class="img-container">
-        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+        <div class="image"style="margin-top: 2%;
+        float: inline-start;
+        text-align: center;">
             <a href="oldmoney/all.html"><img class="myImg" src="https://i.pinimg.com/736x/64/53/5c/64535ca4f366371e38bdb30e501e64af.jpg" alt="Snow" style="width:100%;max-width:300px"></a>
 			<a href="oldmoney/all.html"><div class="image__title">OLD</a></div>
 		</div> 
         
-        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+        <div class="image"style="margin-top: 2%;
+        float: inline-start;
+        text-align: center;">
 		    <a href="allmens.html"><img class="myImg" src="https://i.pinimg.com/736x/b2/5d/62/b25d626d8f0769096a61bd26a857cd76.jpg" alt="Snow" style="width:100%;max-width:300px"></a>
 			<a href="allmens.html"><div class="image__title">MEN</a></div>
 		</div>
 
-        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+        <div class="image"style="margin-top: 2%;
+        float: inline-start;
+        text-align: center;">
             <a href="iman.html"><img class="myImg" src="https://i.pinimg.com/736x/71/bb/02/71bb02cc5de805497044b6707760f0cd.jpg" alt="Snow" style="width:100%;max-width:250px"></a>
 			<a href="iman.html"><div class="image__title">IMAN</a></div>
 		</div>
-        <div class="image"style="margin-top: 2%;left: 15%;float: inline-start;">
+        <div class="image"style="margin-top: 2%;
+        float: inline-start;
+        text-align: center;">
             <a href="mtstyle.html"><img class="myImg" src="https://i.pinimg.com/736x/c0/af/b9/c0afb9019971e3273634679ae921e727.jpg" alt="Snow" style="width:100%;max-width:250px"></a>
 			<a href="mtstyle.html"><div class="image__title">MY STYLE</a></div>
 		</div>
