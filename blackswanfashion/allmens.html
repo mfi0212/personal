@@ -17,10 +17,9 @@
          <h1>Style of <br>Men</h1>
        </div>
        <div class="add-image">
-         <input id="image-url" type="text" placeholder="Enter image URL">
-         <button id="add-image-btn">Add Image</button>
+         <a href="mtstyle.html"><button id="add-image-btn">Add an Image</button></a>
        </div>
-      <div class="img-container">
+      <div class="img-container" id="img-container">
          <img class="myImg" src="https://i.pinimg.com/564x/b2/ea/60/b2ea60967280f0b4dca3ffda1a7e8036.jpg">
          <img class="myImg" src="https://i.pinimg.com/564x/b0/74/83/b07483ada78bdf6a063e563fbd0166de.jpg">
          <img class="myImg" src="https://i.pinimg.com/564x/10/6e/fd/106efda22d98efb268942a92ad97fc74.jpg" >
@@ -257,6 +256,71 @@
              alert("Please enter a valid URL.");
            }
          });
+
+
+         // Get modal, images, and other necessary elements
+var modal = document.getElementById("myModal");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+var imgContainer = document.querySelector(".img-container");
+
+// Load images from local storage
+function loadImages() {
+  let storedImages = JSON.parse(localStorage.getItem("userImages")) || [];
+  storedImages.forEach(function(url) {
+    addImageToDOM(url);
+  });
+}
+
+// Add image to the DOM
+function addImageToDOM(url) {
+  let img = document.createElement("img");
+  img.className = "myImg";
+  img.src = url;
+  img.alt = "User added image"; // Optional: Customize as needed
+  imgContainer.appendChild(img);
+
+  // Add click event for modal
+  img.addEventListener("click", function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  });
+}
+
+// Add a new image via URL
+function addImageByUrl(url) {
+  if (url) {
+    // Save to local storage
+    let storedImages = JSON.parse(localStorage.getItem("userImages")) || [];
+    storedImages.push(url);
+    localStorage.setItem("userImages", JSON.stringify(storedImages));
+
+    // Add to DOM
+    addImageToDOM(url);
+  } else {
+    alert("Please enter a valid image URL.");
+  }
+}
+
+// Close the modal when clicking outside or on the close button
+var span = document.getElementsByClassName("close")[0];
+window.onclick = function(event) {
+  if (event.target == modal || event.target == span) {
+    modal.style.display = "none";
+  }
+};
+
+// Call loadImages on page load
+loadImages();
+
+// Example: Add a new image (You can replace this with user input)
+document.getElementById("addImageBtn").addEventListener("click", function() {
+  var newImageUrl = document.getElementById("imageUrlInput").value;
+  addImageByUrl(newImageUrl);
+});
+
+         
          </script>
          
    </body>
