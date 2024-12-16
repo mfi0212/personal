@@ -18,13 +18,11 @@ max-width: 1200px;
 margin: 0 auto;
 padding: 20px;
 }
-
 .logo img {
   display: block;
-  width: 15%;
+  width: 13%;
   filter: invert(1);
 }
-
 .menu {
 margin: 20px 0;
 }
