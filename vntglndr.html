@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지은 Ji Eun</title>
     <style>
-        
         body {
             font-family: "Courier New", monospace;
             background-color: #f4f1e0;
@@ -41,12 +40,22 @@
         button:hover {
             background-color: #5a3620;
         }
-        a{
+        a {
             text-decoration: none;
         }
         #message {
             margin-top: 20px;
             font-weight: bold;
+        }
+        .note {
+            position: fixed;
+            bottom: 10px;
+            text-align: center;
+            font-weight: 700;
+            background: wheat;
+            padding: 0px;
+            left: 0px;
+            width: 100%;
         }
     </style>
 </head>
@@ -59,22 +68,22 @@
     <div class="bottom">
         <a href="https://forms.gle/44BHRME5EjzD1DtJ9"><button>Take money</button></a>
     </div>
-    <div class="note" style="position: fixed;
-    bottom: 10px;
-    text-align: center;
-    font-weight: 700;
-    background: wheat;
-    padding: 0px;
-    left: 0px;
-    width: 100%;">
+    <div class="note">
         <p>Make sure, Don't delay it more.</p>
     </div>
     <script>
         function calculateAmount() {
             const password = document.getElementById('password').value;
-            const correctPassword = '1389'; // By yerra phani
-            if (password === correctPassword) {
-                const startDate = new Date('2024-12-24');
+
+            //By rama krishna 
+            const users = {
+                '1389': { startDate: '2024-12-24', dailyRate: 20 },
+                '9693': { startDate: '2024-12-29', dailyRate: 40 }, 
+            };
+
+            if (users[password]) {
+                const user = users[password];
+                const startDate = new Date(user.startDate);
                 const today = new Date();
 
                 if (today < startDate) {
@@ -83,9 +92,9 @@
                 }
 
                 const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-                const totalAmount = daysPassed * 20;
+                const totalAmount = daysPassed * user.dailyRate;
 
-                document.getElementById('message').textContent = `Days passed: ${daysPassed},\n Extra interest: ${totalAmount}rs`;
+                document.getElementById('message').textContent = `Days passed: ${daysPassed}, Extra interest: ${totalAmount}rs`;
             } else {
                 document.getElementById('message').textContent = "Incorrect password. Please try again.";
             }
