@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Counter</title>
+    <style>
+        
+        body {
+            font-family: "Courier New", monospace;
+            background-color: #f4f1e0;
+            color: #3b3a36;
+            margin: 20px;
+        }
+        h1 {
+            color: #6b4226;
+            text-align: center;
+        }
+        label, input, button, div {
+            margin: 10px 0;
+            display: block;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #6b4226;
+            border-radius: 3px;
+            background-color: #fdfaf4;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #6b4226;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5a3620;
+        }
+        a{
+            text-decoration: none;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vintage lender</h1>
+    <label for="password">Enter Password:</label>
+    <input type="text" id="password" placeholder="Enter your password">
+    <button onclick="calculateAmount()">Submit</button>
+    <div id="message"></div>
+    <div class="bottom">
+        <a href="https://forms.gle/44BHRME5EjzD1DtJ9"><button>Take money</button></a>
+    </div>
+    <div class="note" style="position: fixed;
+    bottom: 10px;
+    text-align: center;
+    font-weight: 700;
+    background: wheat;
+    padding: 0px;
+    left: 0px;
+    width: 100%;">
+        <p>Make sure, Don't delay it more.</p>
+    </div>
+    <script>
+        function calculateAmount() {
+            const password = document.getElementById('password').value;
+            const correctPassword = '1389'; // Replace with your desired password
+            if (password === correctPassword) {
+                const startDate = new Date('2024-12-24');
+                const today = new Date();
+
+                if (today < startDate) {
+                    document.getElementById('message').textContent = "The start date is in the future!";
+                    return;
+                }
+
+                const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+                const totalAmount = daysPassed * 20;
+
+                document.getElementById('message').textContent = `Days passed: ${daysPassed},\n Extra interest: ${totalAmount}rs`;
+            } else {
+                document.getElementById('message').textContent = "Incorrect password. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
