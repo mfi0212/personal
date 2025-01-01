@@ -3,101 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지은 Ji Eun</title>
+    <title>Login System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: "Courier New", monospace;
-            background-color: #f4f1e0;
-            color: #3b3a36;
-            margin: 20px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text */
         }
-        h1 {
-            color: #6b4226;
+
+        #passwordContainer {
             text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: transparent;
         }
-        label, input, button, div {
-            margin: 10px 0;
-            display: block;
+
+        #userPassword {
+            padding: 10px 20px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            margin-bottom: 10px;
+            outline: none;
+            background: #1e1e1e;
+            color: #fff;
+            position: relative;
+            left: -25px;
         }
-        label {
-            font-weight: bold;
+
+        #userPassword:focus {
+            border-color: #808080;
         }
-        input {
-            padding: 5px;
-            width: 300px;
-            border: 1px solid #6b4226;
-            border-radius: 3px;
-            background-color: #fdfaf4;
+
+        #togglePassword {
+            position: absolute;
+            right: 0%;
+            top: 36%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #007bff;
         }
-        button {
-            padding: 5px 10px;
-            background-color: #6b4226;
+
+        #submitBtn {
+          background-color: #eeeeee;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 500px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 11px 11px;
+        }
+
+        #submitBtn:hover {
+            background-color: #c4c4c4;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .userinfo {
+            display: none;
+            text-align: left;
+            background: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            top: 10px;
+            position: fixed;
+            left: 0px;
+            line-height: 30px;
+        }
+
+        .userinfo p {
+            color: #bbb;
+        }
+
+        #paymentSection {
+            margin-top: 20px;
+        }
+
+        #moneyInput {
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 60%;
+            font-size: 16px;
+            border: 1px solid #444;
+            margin-bottom: 10px;
+        }
+
+        #moneyBtn {
+            padding: 10px 20px;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #5a3620;
+
+        #moneyBtn:hover {
+            background-color: #218838;
         }
+
+        #paymentMessage {
+            margin-top: 10px;
+            color: #28a745;
+        }
+
+        #backIcon {
+            display: none; /* Hidden by default */
+        }
+
+        .userinfo #backIcon {
+            display: inline-block; /* Show icon in user info section */
+        }
+
         a {
             text-decoration: none;
-        }
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .note {
-            position: fixed;
-            bottom: 10px;
-            text-align: center;
-            font-weight: 700;
-            background: wheat;
-            padding: 0px;
-            left: 0px;
-            width: 100%;
         }
     </style>
 </head>
 <body>
-    <h1>Vintage Lender</h1>
-    <label for="password">Enter Password:</label>
-    <input type="text" id="password" placeholder="Enter your password">
-    <button onclick="calculateAmount()">Submit</button>
-    <div id="message"></div>
-    <div class="bottom">
-        <a href="https://forms.gle/44BHRME5EjzD1DtJ9"><button>Take money</button></a>
+    <div id="passwordContainer">
+        <h1>Vintage Lender</h1>
+        <div style="position: relative; display: inline-block;">
+            <input type="text" id="userPassword" placeholder="Enter password">
+            <i id="togglePassword"></i>
+        </div>
+        <br>
+        <button id="submitBtn"><i class="fa-solid fa-arrow-right"></i></button>
+        <p id="error-message"></p>
     </div>
-    <div class="note">
-        <p>Make sure, Don't delay it more.</p>
+
+    <div class="userinfo" id="userInfo">
+        <div class="back" style="display: flex; align-items: baseline; gap: 15px;">
+            <i class="fa-solid fa-arrow-left" id="backIcon" style="cursor: pointer; font-size: 20px; color: #ececec; margin-bottom: 10px;"></i>
+            <p style="font-size: 20px;" id="backIcon">Amount</p>
+        </div>
+        <h2 id="welcomeMessage"></h2>
+        <p><strong><i class="fa-regular fa-circle-user"></i></strong> <span id="userName"></span></p>
+        <p><strong><i class="fa-solid fa-arrow-up-wide-short"></i></strong> <span id="totalAmount"></span> Rupees</p>
+        <p><strong><i class="fa-regular fa-calendar-minus"></i></strong> <span id="daysPassed"></span> days</p>
+        <p><strong><i class="fa-solid fa-sack-dollar"></i></strong> <span id="dailyAmount"></span> Rupees</p>
+        <p><strong><i class="fa-solid fa-money-bill-transfer"></i></strong> <span id="takenAmount"></span> Rupees</p>
+        <div class="bottom" style="margin-top: 30px;">
+            <a href="https://forms.gle/44BHRME5EjzD1DtJ9"><p><i class="fa-regular fa-circle"></i> Take amount now</p></a>
+        </div>
     </div>
+
     <script>
-        function calculateAmount() {
-            const password = document.getElementById('password').value;
-
-            //By rama krishna 
-            const users = {
-                '1389': { startDate: '2024-12-24', dailyRate: 20 },
-                '9693': { startDate: '2024-12-29', dailyRate: 30 }, 
-            };
-
-            if (users[password]) {
-                const user = users[password];
-                const startDate = new Date(user.startDate);
-                const today = new Date();
-
-                if (today < startDate) {
-                    document.getElementById('message').textContent = "The start date is in the future!";
-                    return;
-                }
-
-                const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-                const totalAmount = daysPassed * user.dailyRate;
-
-                document.getElementById('message').textContent = `Days passed: ${daysPassed}, Interest: ${totalAmount}rs`;
-            } else {
-                document.getElementById('message').textContent = "Incorrect password. Please try again.";
+        const passwords = {
+            "9693": {
+                name: "Harsha",
+                planDate: "2024-12-29",
+                dailyAmount: 30,
+                takenAmount: 4000 // Added taken amount
+            },
+            "1389": {
+                name: "Phani",
+                planDate: "2024-12-24",
+                dailyAmount: 20,
+                takenAmount: 4500 // Added taken amount
             }
+        };
+
+        const passwordInput = document.getElementById("userPassword");
+        const togglePassword = document.getElementById("togglePassword");
+        const submitBtn = document.getElementById("submitBtn");
+        const errorMessage = document.getElementById("error-message");
+        const passwordContainer = document.getElementById("passwordContainer");
+        const userInfo = document.getElementById("userInfo");
+        const userName = document.getElementById("userName");
+        const totalAmount = document.getElementById("totalAmount");
+        const daysPassed = document.getElementById("daysPassed");
+        const dailyAmount = document.getElementById("dailyAmount");
+        const takenAmount = document.getElementById("takenAmount");
+        const backIcon = document.getElementById("backIcon");
+
+        togglePassword.addEventListener("click", () => {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePassword.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                togglePassword.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        });
+
+        submitBtn.addEventListener("click", () => {
+            const userInput = passwordInput.value.trim();
+            errorMessage.textContent = "";
+
+            if (passwords[userInput]) {
+                const user = passwords[userInput];
+                updateUserBalance(user);
+                showUserInfo(user);
+            } else {
+                errorMessage.textContent = "Incorrect password!";
+            }
+        });
+
+        backIcon.addEventListener("click", () => {
+            userInfo.style.display = "none"; // Hide user info section
+            passwordContainer.style.display = "block"; // Show password input section
+            passwordInput.value = ""; // Clear the password input
+            errorMessage.textContent = ""; // Clear any error messages
+        });
+
+        function updateUserBalance(user) {
+            const currentDate = new Date();
+            const planDate = new Date(user.planDate);
+
+            // Calculate the total days passed since planDate
+            const timeDiff = currentDate - planDate;
+            const daysPassedValue = Math.max(0, Math.floor(timeDiff / (1000 * 3600 * 24))); // Ensure non-negative days
+
+            // Calculate total amount based on daily amount and days passed
+            const totalAmountValue = daysPassedValue * user.dailyAmount;
+
+            // Display the calculated values
+            userName.textContent = user.name;
+            totalAmount.textContent = totalAmountValue; // Dynamic balance
+            daysPassed.textContent = daysPassedValue;
+            dailyAmount.textContent = user.dailyAmount;
+            takenAmount.textContent = user.takenAmount; // Show taken amount
+        }
+
+        function showUserInfo(user) {
+            passwordContainer.style.display = "none";
+            userInfo.style.display = "block";
         }
     </script>
 </body>
