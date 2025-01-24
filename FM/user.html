@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff;
+        }
+        .user-details {
+            margin-top: 20px;
+        }
+        .user-details h3 {
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .user-details p {
+            font-size: 18px;
+            color: #555;
+        }
+        footer {
+            text-align: center;
+    padding: 15px 0px;
+    background: #f1f1f1;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #e4e4e4;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Welcome, <span id="userName">User</span> to MFI
+        </div>
+        <div class="user-details">
+            <h3>Amount Details</h3>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Taken on:</strong> <span id="planDate"></span></p>
+            <p><strong>Daily Amount:</strong> <span id="dailyAmount"></span>/day</p>
+            <p><strong>Taken Amount:</strong> <span id="takenAmount"></span>rs</p>
+            <p><strong>Plan End Date:</strong> <span id="endDate"></span></p>
+        </div>
+    </div>
+    <footer>
+        This is your details of your amount that you have taken from <span>MFI</span>
+    </footer>
+    <script>
+        // Retrieve the user data from localStorage
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+        // Display the user details
+        if (userDetails) {
+            document.getElementById('userName').textContent = userDetails.name;
+            document.getElementById('name').textContent = userDetails.name;
+            document.getElementById('planDate').textContent = userDetails.planDate;
+            document.getElementById('dailyAmount').textContent = userDetails.dailyAmount;
+            document.getElementById('takenAmount').textContent = userDetails.takenAmount;
+            document.getElementById('endDate').textContent = userDetails.endDate;
+        } else {
+            // If no user data exists, redirect to the login page
+            window.location.href = 'index.html';  // Adjust to your login page
+        }
+    </script>
+</body>
+</html>
