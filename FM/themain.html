@@ -6,14 +6,19 @@
     <title>MFI-FM</title>
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/gW8Py0B/BS.png">
     <style>
-        
+         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Red+Hat+Display:ital,wght@0,300..900&family=Strait&display=swap');
+      * {
+          font-family: "Red Hat Display", sans-serif;
+          color: #ffffff;
+      }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-            color: #333;
-            line-height: 1.6;
+           margin: 0;
+    padding: 0;
+    background-image: url("https://i.pinimg.com/736x/2e/10/3b/2e103bf7a23274364fce23aa5486453e.jpg");
+    line-height: 1.6;
+    background-size: contain;
+    backdrop-filter: blur(10px);
+            letter-spacing: 0.6px;
         }
         .offer-container {
             max-width: 400px;
@@ -24,14 +29,14 @@
             
         }
         .header {
-            background: linear-gradient(190deg, #0037ff, #000000);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: #000000;
+    color: #ffffff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px;
+
         }
         .navbar {
             display: grid
@@ -44,7 +49,7 @@
         .navbar .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #0040ff;
+            color: #00c6ff;
             display: flex;
             align-items: center;
         }
@@ -60,52 +65,49 @@
         }
         .navbar .nav-links a {
             text-decoration: none;
-            color: #ffffff;
-            font-size: 16px;
-            transition: color 0.3s, transform 0.3s;
+    color: #ffffff;
+    font-size: 15px;
+    transition: color 0.3s, transform 0.3s;
+    backdrop-filter: blur(26px);
+    background: #ffffff59;
         }
        
         .content {
             padding: 30px;
         }
         .offer-item {
-            background: linear-gradient(to bottom, #f8f9fa, #e8e9eb);
-            border: 1px solid #e4e4e4;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: #ffffff2e;
+    border: 1px solid #ffffff2b;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(25px);
         }
         .offer-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         .offer-item h2 {
-            color: #0040ff;
+            color: #00e5ff;
             font-size: 24px;
             margin-bottom: 10px;
             font-weight: 600;
         }
         .offer-item p {
             margin: 0;
-            font-size: 18px;
-            color: #555;
+    font-size: 15px;
+    color: #eeeeee;
         }
         .cta {
             text-align: center;
             margin-top: 30px;
         }
         button, a {
-            background: linear-gradient(190deg, #0037ff, #000000);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: transparent;
+    border: solid 1px gray;
+    padding: 10px;
+    border-radius: 100px;
+    cursor: pointer;
         }
         button:hover {
             background: linear-gradient(90deg, #0056b3, #003d80);
@@ -131,7 +133,7 @@
         }
         .modal h2 {
             margin-top: 0;
-            color: #0040ff;
+            color: #00e5ff;
         }
         .modal input {
             width: calc(100% - 20px);
@@ -179,6 +181,13 @@
             color: #666;
             border-top: 1px solid #e4e4e4;
         }
+        strong{
+            color: #000000;
+    background: #ffffff8c;
+    padding: 0px 9px;
+    border-radius: 27px;
+    font-size: 15px;
+        }
         footer span {
             color: #0040ff;
             font-weight: bold;
@@ -194,20 +203,18 @@
         </div>
         <div class="navbar">
             <div class="logo">
-                MFI - For Members
+                MFI
             </div>
             <div class="nav-links">
                 <a href="#" id="myAccountLink">My Account</a>
                 <a href="https://forms.gle/vSzAaoyFs4aEktbQ7">Apply Now</a>
             </div>
         </div>
-        <div class="header">
-            Keep it in mind
-        </div>
-        <div class="content" style="background: #f4c3ff;">
-            <div class="offer-item">
-                <h2 style="color: #e443ff">MFI- Mothers are our First Investment</h2>
-                <p style="color: #000000;">"Mothers are the ones who teach us the worth of each coin. Spend on her, not on those who only care about how many coins you have."</p>
+        <div class="content" style="background: none;
+    padding: 10px;">
+            <div class="offer-item" style="background: #ffffff21;
+    border: none;">
+                <p style="color: #ffffff;">“The key to companionship is trust. We wouldn’t have come this far if we didn’t trust each other.” </p>
             </div>
         </div>
         <div class="header">
@@ -224,15 +231,6 @@
             </div>
             <div class="cta">
                 <button onclick="alert('Temporarily closed')">Apply for offer</button>
-            </div>
-        </div>
-        <div class="header">
-            Keep it in mind
-        </div>
-        <div class="content" style="background: #b8c7ff;">
-            <div class="offer-item">
-                <h2 style="color: #0062ff;">MFI- Make Future by Incresing the companionship</h2>
-                <p style="color: #000000;">“The key to companionship is trust. We wouldn’t have come this far if we didn’t trust each other.” </p>
             </div>
         </div>
         <div class="header">
