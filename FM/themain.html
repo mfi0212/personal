@@ -6,19 +6,14 @@
     <title>MFI-FM</title>
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/gW8Py0B/BS.png">
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Red+Hat+Display:ital,wght@0,300..900&family=Strait&display=swap');
-      * {
-          font-family: "Red Hat Display", sans-serif;
-          color: #ffffff;
-      }
+        
         body {
-           margin: 0;
-    padding: 0;
-    background-image: url("https://i.pinimg.com/736x/9d/c7/3e/9dc73e4966dff2815d15aa297600b19d.jpg");
-    line-height: 1.6;
-    background-size: contain;
-    backdrop-filter: blur(45px);
-            letter-spacing: 0.6px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
         }
         .offer-container {
             max-width: 400px;
@@ -29,30 +24,29 @@
             
         }
         .header {
-            background: #00000082;
-    color: #ffffff;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 10px;
-
+            background: linear-gradient(190deg, #0037ff, #000000);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .navbar {
             display: grid
 ;
     align-items: center;
-    padding: 0px 20px;
+    padding: 10px 20px;
     gap: 15em;
     margin-bottom: 8em;
         }
         .navbar .logo {
-            font-size: 28px;
-    font-weight: 900;
-    color: #000000;
-    display: flex
-;
-    align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #0040ff;
+            display: flex;
+            align-items: center;
         }
         .navbar .logo img {
             max-height: 40px;
@@ -66,53 +60,61 @@
         }
         .navbar .nav-links a {
             text-decoration: none;
-    color: #ffffff;
-    font-size: 15px;
-    transition: color 0.3s, transform 0.3s;
-    backdrop-filter: blur(49px);
-    background: #ffffff59;
-    border: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s, transform 0.3s;
         }
        
         .content {
             padding: 30px;
         }
         .offer-item {
-            background: #ffffff2e;
-    border: 1px solid #ffffff2b;
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(25px);
+            background: linear-gradient(to bottom, #f8f9fa, #e8e9eb);
+            border: 1px solid #e4e4e4;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-       
+        .offer-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
         .offer-item h2 {
-            color: #000000;
+            color: #0040ff;
             font-size: 24px;
             margin-bottom: 10px;
             font-weight: 600;
         }
         .offer-item p {
             margin: 0;
-    font-size: 15px;
-    color: #eeeeee;
+            font-size: 18px;
+            color: #555;
         }
         .cta {
             text-align: center;
             margin-top: 30px;
         }
         button, a {
-            background: #ffffff3d;
-    border: none;
-    padding: 13px 26px;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 14px;
+            background: linear-gradient(190deg, #0037ff, #000000);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background: linear-gradient(90deg, #0056b3, #003d80);
+            transform: scale(1.1);
         }
         .modal {
             display: none;
             position: fixed;
-    top: 15%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
@@ -129,31 +131,32 @@
         }
         .modal h2 {
             margin-top: 0;
-            color: #000000;
+            color: #0040ff;
         }
-        
         .modal input {
             width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            text-align: center;
-            color: black;
             transition: border-color 0.3s;
         }
         .modal input:focus {
-            border-color: #000000;
+            border-color: #0040ff;
             outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
         .modal button {
-            background-color: #000000;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+            background-color: #0040ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background-color: #0040ff;
         }
         .overlay {
             display: none;
@@ -176,13 +179,6 @@
             color: #666;
             border-top: 1px solid #e4e4e4;
         }
-        strong{
-            color: #000000;
-    background: #ffffff8c;
-    padding: 0px 9px;
-    border-radius: 27px;
-    font-size: 15px;
-        }
         footer span {
             color: #0040ff;
             font-weight: bold;
@@ -198,18 +194,20 @@
         </div>
         <div class="navbar">
             <div class="logo">
-                MFI
+                MFI - For Members
             </div>
             <div class="nav-links">
                 <a href="#" id="myAccountLink">My Account</a>
                 <a href="https://forms.gle/vSzAaoyFs4aEktbQ7">Apply Now</a>
             </div>
         </div>
-        <div class="content" style="background: none;
-    padding: 10px;">
-            <div class="offer-item" style="background: #ffffff21;
-    border: none;">
-                <p style="color: #ffffff;">“The key to companionship is trust. We wouldn’t have come this far if we didn’t trust each other.” </p>
+        <div class="header">
+            Keep it in mind
+        </div>
+        <div class="content" style="background: #f4c3ff;">
+            <div class="offer-item">
+                <h2 style="color: #e443ff">MFI- Mothers are our First Investment</h2>
+                <p style="color: #000000;">"Mothers are the ones who teach us the worth of each coin. Spend on her, not on those who only care about how many coins you have."</p>
             </div>
         </div>
         <div class="header">
@@ -229,6 +227,15 @@
             </div>
         </div>
         <div class="header">
+            Keep it in mind
+        </div>
+        <div class="content" style="background: #b8c7ff;">
+            <div class="offer-item">
+                <h2 style="color: #0062ff;">MFI- Make Future by Incresing the companionship</h2>
+                <p style="color: #000000;">“The key to companionship is trust. We wouldn’t have come this far if we didn’t trust each other.” </p>
+            </div>
+        </div>
+        <div class="header">
             Don't forgot to
         </div>
         <div class="content">
@@ -244,8 +251,8 @@
     </div>
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="accountModal">
-        <h2>Enter the password</h2>
-        <input type="text" id="loginInput" placeholder="Password">
+        <h2>Login to Your Account</h2>
+        <input type="text" id="loginInput" placeholder="Enter Password">
         <button id="loginButton">Login</button>
     </div>
     <footer>
