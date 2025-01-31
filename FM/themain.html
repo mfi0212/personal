@@ -89,16 +89,21 @@
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            text-align: center;
+            outline: none;
+            
         }
         .modal button {
-            width: 100%;
             padding: 10px;
-            border: none;
-            background: #000000;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
+    border: none;
+    background: #000000;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline;
+    width: 45%;
+
         }
         .modal button:hover { background: #141414; }
 
@@ -140,7 +145,7 @@
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <h3>Enter Password</h3>
-        <input type="password" id="passwordInput" placeholder="Enter Password">
+        <input type="text" id="passwordInput" placeholder="Enter Password">
         <button onclick="verifyPassword()">Login</button>
         <button onclick="closeModal()" style="background: gray; margin-top: 10px;">Cancel</button>
     </div>
