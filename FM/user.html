@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MFI Portal</title>
+    <title>User Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Handjet:wght@100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DotGothic16&family=Gruppo&family=Handjet:wght@100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Michroma&family=Pixelify+Sans:wght@400..700&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sarpanch:wght@400;500;600;700;800;900&family=Stalinist+One&family=VT323&display=swap');
@@ -24,84 +24,37 @@
     padding: 20px;
     font-family: "Handjet", serif;
 }
-
-        
-        /* LOGO */
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            color: #0025ff;
+        .container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        /* WELCOME MESSAGE */
-        .welcome-text {
-            font-size: 21px;
-            font-weight: bold;
-            margin-top: 120px;
-            color: #333;
+        h1 { font-size: 32px; margin-bottom: 20px; }
+        .info {
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            width: 280px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            text-align: justify;
+            
         }
-
-        /* BUTTON CONTAINER */
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
         .btn {
             padding: 12px 30px;
             cursor: pointer;
             border: none;
-            background: #0025ff;
+            background: #000000;
             color: white;
             font-size: 18px;
             border-radius: 8px;
             transition: 0.3s ease-in-out;
+            margin-top: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 180px;
             font-family: "Handjet", serif;
         }
-        .btn:hover { background: #000000; transform: scale(1.05); }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: #d0d0d0;
-            color: #333;
-            padding: 25px;
-            width: 320px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 105px rgb(0 0 0);
-            transition: 0.3s ease-in-out;
-        }
-        .modal.active { transform: translate(-50%, -50%) scale(1); display: block; }
-        .modal h3 { margin-bottom: 15px; }
-        .modal input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .modal button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #000000;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .modal button:hover { background: #141414; }
-
-        /* FONT SELECTION CONTAINER */
         .font-selector {
             margin-top: 20px;
         }
@@ -112,21 +65,19 @@
     border: 1px solid #000000;
     outline: none;
         }
-
+        .logout:hover { background: #002aff; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <div class="logo">MFI(P)</div>
-
-    <div class="welcome-text">Hey hi, Wait few hours after filling the form, Amount was collecting.....</div>
-
-    <div class="button-container">
-        <button class="btn" onclick="openModal()">My account</button>
-        <button class="btn">Fill the form</button>
+    <h1>Welcome to Your Account</h1>
+    <div class="container">
+        <p class="info"><strong>Name:</strong> <span id="name"></span></p>
+        <p class="info"><strong>Amount:</strong> <span id="amount"></span></p>
+        <p class="info"><strong>Taken Date:</strong> <span id="takenDate"></span></p>
+        <p class="info"><strong>Days Left:</strong> <span id="daysLeft"></span></p>
+        <button class="btn" onclick="logout()">Logout</button>
     </div>
-
-    <!-- Font Selector -->
     <div class="font-selector">
         <label for="fontSelect">Select Font:</label>
         <select id="fontSelect" onchange="changeFont()">
@@ -135,42 +86,23 @@
         </select>
         
     </div>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <h3>Enter Password</h3>
-        <input type="password" id="passwordInput" placeholder="Enter Password">
-        <button onclick="verifyPassword()">Login</button>
-        <button onclick="closeModal()" style="background: gray; margin-top: 10px;">Cancel</button>
-    </div>
-
     <script>
-        function openModal() {
-            document.getElementById("loginModal").classList.add("active");
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+        if (userDetails) {
+            document.getElementById("name").innerText = userDetails.name;
+            document.getElementById("amount").innerText = userDetails.amount;
+            document.getElementById("takenDate").innerText = userDetails.takenDate;
+            document.getElementById("daysLeft").innerText = userDetails.daysLeft;
+        } else {
+            alert("No user data found. Redirecting...");
+            window.location.href = "themain.html";
         }
 
-        function closeModal() {
-            document.getElementById("loginModal").classList.remove("active");
+        function logout() {
+            localStorage.removeItem("userDetails");
+            window.location.href = "themain.html";
         }
-
-        function verifyPassword() {
-            const password = document.getElementById("passwordInput").value;
-            const correctPassword = "1234"; // Replace with a secure method
-
-            if (password === correctPassword) {
-                const userData = {
-                    name: "John Doe",
-                    amount: "$5000",
-                    takenDate: "2024-01-15",
-                    daysLeft: 30
-                };
-                localStorage.setItem("userDetails", JSON.stringify(userData));
-                window.location.href = "user.html";
-            } else {
-                alert("Incorrect Password!");
-            }
-        }
-
         function changeFont() {
     const selectedFont = document.getElementById('fontSelect').value;
     if (selectedFont === 'Handjet') {
@@ -187,7 +119,6 @@
         });
     }
 }
-
     </script>
 
 </body>
