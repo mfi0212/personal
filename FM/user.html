@@ -3,87 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Details</title>
+    <title>MFI Portal</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9fafb;
-            color: #333;
-            line-height: 1.6;
+        @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Handjet:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DotGothic16&family=Gruppo&family=Handjet:wght@100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Michroma&family=Pixelify+Sans:wght@400..700&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sarpanch:wght@400;500;600;700;800;900&family=Stalinist+One&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+
+ 
+    
+        * { margin: 0; padding: 0; box-sizing: border-box;}
+        body { 
+    background: #f8f9fa; 
+    color: #333; 
+    text-align: center; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    font-family: "Handjet", serif;
+}
+
+        
+        /* LOGO */
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            color: #0025ff;
         }
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .header {
+
+        /* WELCOME MESSAGE */
+        .welcome-text {
             font-size: 21px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #007bff;
+            font-weight: bold;
+            margin-top: 120px;
+            color: #333;
         }
-        .user-details {
+
+        /* BUTTON CONTAINER */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            cursor: pointer;
+            border: none;
+            background: #0025ff;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 180px;
+            font-family: "Handjet", serif;
+        }
+        .btn:hover { background: #000000; transform: scale(1.05); }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: #d0d0d0;
+            color: #333;
+            padding: 25px;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 105px rgb(0 0 0);
+            transition: 0.3s ease-in-out;
+        }
+        .modal.active { transform: translate(-50%, -50%) scale(1); display: block; }
+        .modal h3 { margin-bottom: 15px; }
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #000000;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal button:hover { background: #141414; }
+
+        /* FONT SELECTION CONTAINER */
+        .font-selector {
             margin-top: 20px;
         }
-        .user-details h3 {
-            color: #0056b3;
-            font-size: 24px;
-            margin-bottom: 10px;
+        .font-selector select {
+            padding: 0px 10px;
+    font-size: 15px;
+    border-radius: 21px;
+    border: 1px solid #000000;
+    outline: none;
         }
-        .user-details p {
-            font-size: 18px;
-            color: #555;
-        }
-        footer {
-            text-align: center;
-    padding: 15px 0px;
-    background: #f1f1f1;
-    font-size: 14px;
-    color: #666;
-    border-top: 1px solid #e4e4e4;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            Welcome, <span id="userName">User</span> to MFI
-        </div>
-        <div class="user-details">
-            <h3>Amount Details</h3>
-            <p><strong>Name:</strong> <span id="name"></span></p>
-            <p><strong>Taken on:</strong> <span id="planDate"></span></p>
-            <p><strong>Daily Amount:</strong> <span id="dailyAmount"></span>/day</p>
-            <p><strong>Taken Amount:</strong> <span id="takenAmount"></span>rs</p>
-            <p><strong>Plan End Date:</strong> <span id="endDate"></span></p>
-        </div>
-    </div>
-    <footer>
-        This is your details of your amount that you have taken from <span>MFI</span>
-    </footer>
-    <script>
-        // Retrieve the user data from localStorage
-        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-        // Display the user details
-        if (userDetails) {
-            document.getElementById('userName').textContent = userDetails.name;
-            document.getElementById('name').textContent = userDetails.name;
-            document.getElementById('planDate').textContent = userDetails.planDate;
-            document.getElementById('dailyAmount').textContent = userDetails.dailyAmount;
-            document.getElementById('takenAmount').textContent = userDetails.takenAmount;
-            document.getElementById('endDate').textContent = userDetails.endDate;
-        } else {
-            // If no user data exists, redirect to the login page
-            window.location.href = 'index.html';  // Adjust to your login page
+    <div class="logo">MFI(P)</div>
+
+    <div class="welcome-text">Hey hi, Wait few hours after filling the form, Amount was collecting.....</div>
+
+    <div class="button-container">
+        <button class="btn" onclick="openModal()">My account</button>
+        <button class="btn">Fill the form</button>
+    </div>
+
+    <!-- Font Selector -->
+    <div class="font-selector">
+        <label for="fontSelect">Select Font:</label>
+        <select id="fontSelect" onchange="changeFont()">
+            <option value="Handjet">Handjet</option>
+            <option value="Cardo">Cardo</option>
+        </select>
+        
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <h3>Enter Password</h3>
+        <input type="password" id="passwordInput" placeholder="Enter Password">
+        <button onclick="verifyPassword()">Login</button>
+        <button onclick="closeModal()" style="background: gray; margin-top: 10px;">Cancel</button>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("loginModal").classList.add("active");
         }
+
+        function closeModal() {
+            document.getElementById("loginModal").classList.remove("active");
+        }
+
+        function verifyPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const correctPassword = "1234"; // Replace with a secure method
+
+            if (password === correctPassword) {
+                const userData = {
+                    name: "John Doe",
+                    amount: "$5000",
+                    takenDate: "2024-01-15",
+                    daysLeft: 30
+                };
+                localStorage.setItem("userDetails", JSON.stringify(userData));
+                window.location.href = "user.html";
+            } else {
+                alert("Incorrect Password!");
+            }
+        }
+
+        function changeFont() {
+    const selectedFont = document.getElementById('fontSelect').value;
+    if (selectedFont === 'Handjet') {
+        // Apply 'DotGothic16' font to body and buttons
+        document.body.style.fontFamily = '"Handjet", serif';
+        document.querySelectorAll('.btn').forEach(button => {
+            button.style.fontFamily = '"Handjet", serif';
+        });
+    } else if (selectedFont === 'Cardo') {
+        // Apply 'Cardo' font to body and buttons
+        document.body.style.fontFamily = '"Cardo", serif';
+        document.querySelectorAll('.btn').forEach(button => {
+            button.style.fontFamily = '"Cardo", serif';
+        });
+    }
+}
+
     </script>
+
 </body>
 </html>
