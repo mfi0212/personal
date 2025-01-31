@@ -3,299 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MFI-FM</title>
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/gW8Py0B/BS.png">
+    <title>MFI Portal</title>
     <style>
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-            color: #333;
-            line-height: 1.6;
-        }
-        .offer-container {
-            max-width: 400px;
-            margin: 10px auto;
-           
-            border-radius: 12px;
-            overflow: hidden;
-            
-        }
-        .header {
-            background: linear-gradient(190deg, #0037ff, #000000);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .navbar {
-            display: grid
-;
+        @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Handjet:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DotGothic16&family=Gruppo&family=Handjet:wght@100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Michroma&family=Pixelify+Sans:wght@400..700&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sarpanch:wght@400;500;600;700;800;900&family=Stalinist+One&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+
+ 
+    
+        * { margin: 0; padding: 0; box-sizing: border-box;}
+        body { 
+    background: #f8f9fa; 
+    color: #333; 
+    text-align: center; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    gap: 15em;
-    margin-bottom: 8em;
-        }
-        .navbar .logo {
-            font-size: 24px;
+    padding: 20px;
+    font-family: "Handjet", serif;
+}
+
+        
+        /* LOGO */
+        .logo {
+            font-size: 25px;
             font-weight: bold;
-            color: #0040ff;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            color: #0025ff;
+        }
+
+        /* WELCOME MESSAGE */
+        .welcome-text {
+            font-size: 21px;
+            font-weight: bold;
+            margin-top: 120px;
+            color: #333;
+        }
+
+        /* BUTTON CONTAINER */
+        .button-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
         }
-        .navbar .logo img {
-            max-height: 40px;
-            margin-right: 10px;
-        }
-        .navbar .nav-links {
-            display: grid
-;
-    gap: 20px;
-    text-align: center;
-        }
-        .navbar .nav-links a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 16px;
-            transition: color 0.3s, transform 0.3s;
-        }
-       
-        .content {
-            padding: 30px;
-        }
-        .offer-item {
-            background: linear-gradient(to bottom, #f8f9fa, #e8e9eb);
-            border: 1px solid #e4e4e4;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .offer-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-        .offer-item h2 {
-            color: #0040ff;
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .offer-item p {
-            margin: 0;
-            font-size: 18px;
-            color: #555;
-        }
-        .cta {
-            text-align: center;
-            margin-top: 30px;
-        }
-        button, a {
-            background: linear-gradient(190deg, #0037ff, #000000);
-            color: white;
+
+        .btn {
+            padding: 12px 30px;
+            cursor: pointer;
             border: none;
-            padding: 15px 30px;
+            background: #0025ff;
+            color: white;
             font-size: 18px;
             border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 180px;
+            font-family: "Handjet", serif;
         }
-        button:hover {
-            background: linear-gradient(90deg, #0056b3, #003d80);
-            transform: scale(1.1);
-        }
+        .btn:hover { background: #000000; transform: scale(1.05); }
         .modal {
             display: none;
             position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    padding: 20px;
-    z-index: 1000;
-    text-align: center;
-    width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: #d0d0d0;
+            color: #333;
+            padding: 25px;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 105px rgb(0 0 0);
+            transition: 0.3s ease-in-out;
         }
-        .modal.active {
-            display: block;
-        }
-        .modal h2 {
-            margin-top: 0;
-            color: #0040ff;
-        }
+        .modal.active { transform: translate(-50%, -50%) scale(1); display: block; }
+        .modal h3 { margin-bottom: 15px; }
         .modal input {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        .modal input:focus {
-            border-color: #0040ff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
         .modal button {
-            background-color: #0040ff;
-            color: white;
+            width: 100%;
+            padding: 10px;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            background: #000000;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
+            transition: 0.3s;
         }
-        .modal button:hover {
-            background-color: #0040ff;
+        .modal button:hover { background: #141414; }
+
+        /* FONT SELECTION CONTAINER */
+        .font-selector {
+            margin-top: 20px;
         }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+        .font-selector select {
+            padding: 0px 10px;
+    font-size: 15px;
+    border-radius: 21px;
+    border: 1px solid #000000;
+    outline: none;
         }
-        .overlay.active {
-            display: block;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #f1f1f1;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #e4e4e4;
-        }
-        footer span {
-            color: #0040ff;
-            font-weight: bold;
-        }
+
     </style>
 </head>
 <body>
-    <div class="offer-container">
-        <div class="year" style="position: absolute;
-        top: 0px;
-        right: 5px;font-size: 11px;">
-            #2019
-        </div>
-        <div class="navbar">
-            <div class="logo">
-                MFI - For Members
-            </div>
-            <div class="nav-links">
-                <a href="#" id="myAccountLink">My Account</a>
-                <a href="https://forms.gle/vSzAaoyFs4aEktbQ7">Apply Now</a>
-            </div>
-        </div>
-        <div class="header">
-            Keep it in mind
-        </div>
-        <div class="content" style="background: #f4c3ff;">
-            <div class="offer-item">
-                <h2 style="color: #e443ff">MFI- Mothers are our First Investment</h2>
-                <p style="color: #000000;">"Mothers are the ones who teach us the worth of each coin. Spend on her, not on those who only care about how many coins you have."</p>
-            </div>
-        </div>
-        <div class="header">
-            Months plan wise offer
-        </div>
-        <div class="content">
-            <div class="offer-item">
-                <h2>6-Month Plan</h2>
-                <p>Take an amount for <strong>6 months</strong> and get <strong>2 months free</strong> with <strong>no interest</strong>.</p>
-            </div>
-            <div class="offer-item">
-                <h2>12 months Plan</h2>
-                <p>Take an amount for <strong>1 year</strong> and get <strong>4 months free</strong> with <strong>no interest</strong>.</p>
-            </div>
-            <div class="cta">
-                <button onclick="alert('Temporarily closed')">Apply for offer</button>
-            </div>
-        </div>
-        <div class="header">
-            Keep it in mind
-        </div>
-        <div class="content" style="background: #b8c7ff;">
-            <div class="offer-item">
-                <h2 style="color: #0062ff;">MFI- Make Future by Incresing the companionship</h2>
-                <p style="color: #000000;">“The key to companionship is trust. We wouldn’t have come this far if we didn’t trust each other.” </p>
-            </div>
-        </div>
-        <div class="header">
-            Don't forgot to
-        </div>
-        <div class="content">
-            <div class="offer-item">
-                <h2>Return on time</h2>
-                <p>If you are late in returning the amount, the interest will double for every 2 days. So try to pay on time to avoid extra charges. <br><br>Contact us if you think you'll be late so we can help you.</p>
-            </div>
-            <div class="offer-item">
-                <h2>Check while returning</h2>
-                <p>Verify your total return amount in your account details before returning the amount.</p>
-            </div>
-        </div>
+
+    <div class="logo">MFI(P)</div>
+
+    <div class="welcome-text">Hey hi, Wait few hours after filling the form, Amount was collecting.....</div>
+
+    <div class="button-container">
+        <button class="btn" onclick="openModal()">My account</button>
+        <button class="btn">Fill the form</button>
     </div>
-    <div class="overlay" id="overlay"></div>
-    <div class="modal" id="accountModal">
-        <h2>Login to Your Account</h2>
-        <input type="text" id="loginInput" placeholder="Enter Password">
-        <button id="loginButton">Login</button>
+
+    <!-- Font Selector -->
+    <div class="font-selector">
+        <label for="fontSelect">Select Font:</label>
+        <select id="fontSelect" onchange="changeFont()">
+            <option value="Handjet">Handjet</option>
+            <option value="Cardo">Cardo</option>
+        </select>
+        
     </div>
-    <footer>
-        Terms and conditions apply. Offer valid for only members of <span>MFI!</span>
-    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <h3>Enter Password</h3>
+        <input type="password" id="passwordInput" placeholder="Enter Password">
+        <button onclick="verifyPassword()">Login</button>
+        <button onclick="closeModal()" style="background: gray; margin-top: 10px;">Cancel</button>
+    </div>
+
     <script>
-        const passwords = {
-            "0101": {
-                name: "Deepak",
-                planDate: "2025-1-12",
-                dailyAmount: 33.5,
-                takenAmount: 10000,
-                endDate: "2025-03-13"
-            }
-        };
+        function openModal() {
+            document.getElementById("loginModal").classList.add("active");
+        }
 
-        const myAccountLink = document.getElementById('myAccountLink');
-        const modal = document.getElementById('accountModal');
-        const overlay = document.getElementById('overlay');
-        const loginButton = document.getElementById('loginButton');
+        function closeModal() {
+            document.getElementById("loginModal").classList.remove("active");
+        }
 
-        myAccountLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.classList.add('active');
-            overlay.classList.add('active');
-        });
+        function verifyPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const correctPassword = "1234"; // Replace with a secure method
 
-        overlay.addEventListener('click', () => {
-            modal.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        loginButton.addEventListener('click', () => {
-            const loginInput = document.getElementById('loginInput').value;
-
-            if (passwords[loginInput]) {
-                // Store user data in localStorage
-                localStorage.setItem('userDetails', JSON.stringify(passwords[loginInput]));
-                window.location.href = 'user.html'; // Redirect to user.html
+            if (password === correctPassword) {
+                const userData = {
+                    name: "John Doe",
+                    amount: "$5000",
+                    takenDate: "2024-01-15",
+                    daysLeft: 30
+                };
+                localStorage.setItem("userDetails", JSON.stringify(userData));
+                window.location.href = "user.html";
             } else {
-                alert('Invalid credentials. Please try again.');
+                alert("Incorrect Password!");
             }
+        }
+
+        function changeFont() {
+    const selectedFont = document.getElementById('fontSelect').value;
+    if (selectedFont === 'Handjet') {
+        // Apply 'DotGothic16' font to body and buttons
+        document.body.style.fontFamily = '"Handjet", serif';
+        document.querySelectorAll('.btn').forEach(button => {
+            button.style.fontFamily = '"Handjet", serif';
         });
+    } else if (selectedFont === 'Cardo') {
+        // Apply 'Cardo' font to body and buttons
+        document.body.style.fontFamily = '"Cardo", serif';
+        document.querySelectorAll('.btn').forEach(button => {
+            button.style.fontFamily = '"Cardo", serif';
+        });
+    }
+}
+
     </script>
+
 </body>
 </html>
