@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Gain Foods</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            margin: 10px;
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Foods to Help You Gain Weight</h1>
+
+<!-- Search bar to filter the table -->
+<input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search for food categories, examples, or benefits..">
+
+<table id="foodTable">
+    <thead>
+        <tr>
+            <th>Food Category</th>
+            <th>Examples</th>
+            <th>Why It's Good for Weight Gain</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Proteins</td>
+            <td>Chicken, beef, fish, eggs, tofu, beans</td>
+            <td>Builds muscle, essential for healthy weight gain</td>
+        </tr>
+        <tr>
+            <td>Dairy</td>
+            <td>Whole milk, cheese, yogurt, cream</td>
+            <td>High in healthy fats and protein</td>
+        </tr>
+        <tr>
+            <td>Healthy Fats</td>
+            <td>Nuts, seeds, avocado, olive oil, peanut butter</td>
+            <td>Calorie-dense and good for heart health</td>
+        </tr>
+        <tr>
+            <td>Carbohydrates</td>
+            <td>Rice, whole grains, potatoes, pasta, oats, bread</td>
+            <td>Provides energy and helps store calories</td>
+        </tr>
+        <tr>
+            <td>Fruits</td>
+            <td>Bananas, mangoes, dates, raisins</td>
+            <td>Natural sugars for energy and extra calories</td>
+        </tr>
+        <tr>
+            <td>Vegetables</td>
+            <td>Sweet potatoes, peas, corn, carrots</td>
+            <td>Nutrient-rich and supports digestion</td>
+        </tr>
+        <tr>
+            <td>High-Calorie Snacks</td>
+            <td>Trail mix, granola, protein bars, dark chocolate</td>
+            <td>Extra calories between meals</td>
+        </tr>
+        <tr>
+            <td>Smoothies & Drinks</td>
+            <td>Milkshakes, fruit smoothies with nut butter, protein shakes</td>
+            <td>Liquid calories are easy to consume</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function filterTable() {
+        var input, filter, table, tr, td, i, j, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toLowerCase();
+        table = document.getElementById("foodTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header
+            tr[i].style.display = "none"; // Hide all rows initially
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Show row if it matches the search
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
