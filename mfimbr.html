@@ -51,27 +51,58 @@
         }
     </style>
     <script>
-        function openPopup() {
-            document.getElementById("popup").style.display = "block";
+        const users = {
+            "user1": { name: "John Doe", password: "1234", loanAmount: "$1000", interestRate: "5% per year", duration: "12 months" },
+            "user2": { name: "Jane Smith", password: "5678", loanAmount: "$2000", interestRate: "4.5% per year", duration: "24 months" }
+};
+
+function openPopup() {
+    document.getElementById("popup").style.display = "block";
+}
+
+function verifyPassword() {
+    const password = document.getElementById("password").value;
+    let userFound = false;
+
+    for (const key in users) {
+        if (users[key].password === password) {
+            userFound = true;
+            document.getElementById("popup-content").innerHTML = `
+                <p>Welcome! Here are your account details:</p>
+                <p><strong>Name:</strong> ${users[key].name}</p>
+                <p><strong>Loan Amount:</strong> ${users[key].loanAmount}</p>
+                <p><strong>Interest Rate:</strong> ${users[key].interestRate}</p>
+                <p><strong>Loan Duration:</strong> ${users[key].duration}</p>
+                <button onclick="closePopup()">Close</button>
+            `;
+            break;
         }
-        function verifyPassword() {
-            const password = document.getElementById("password").value;
-            if (password === "1234") { 
-                document.getElementById("popup-content").innerHTML = `
-                    <p>Welcome! Here are your account details:</p>
-                    <p><strong>Name:</strong> John Doe</p>
-                    <p><strong>Loan Amount:</strong> $1000</p>
-                    <p><strong>Interest Rate:</strong> 5% per year</p>
-                    <p><strong>Loan Duration:</strong> 12 months</p>
-                    <button onclick="closePopup()">Close</button>
-                `;
-            } else {
-                alert("Incorrect password! Please try again.");
-            }
-        }
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
+    }
+
+    if (!userFound) {
+        alert("Incorrect password! Please try again.");
+    }
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const customMenu = document.querySelector(".custom-menu");
+
+    // Show custom menu on right-click
+    document.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        customMenu.style.display = "block";
+        customMenu.style.top = `${event.pageY}px`;
+        customMenu.style.left = `${event.pageX}px`;
+    });
+
+    // Hide the menu when clicking elsewhere
+    document.addEventListener("click", () => {
+        customMenu.style.display = "none";
+    });
+});
     </script>
 </head>
 <body>
