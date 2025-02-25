@@ -11,18 +11,22 @@
             font-family: "Noto Sans", sans-serif;
             letter-spacing: 0.3px;
             padding: 20px;
-            line-height: 30px;background-color:#ffffff;
+            line-height: 50px;
+    background-color: #ffffff;
+    font-size: 20px;
         }
         .highlight {
             color: #0048ff;
             text-decoration: none;
             cursor: pointer;
-        }
+            white-space: nowrap;
+                }
         .highlight:hover{
             text-decoration: underline;
         }
         .logo {
-            font-size: 30px;
+            font-size: 40px;
+            color: #0048ff;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -92,8 +96,7 @@ function verifyPassword() {
         if (users[key].password === password) {
             userFound = true;
             document.getElementById("popup-content").innerHTML = `
-                <p>Welcome! Here are your account details:</p><br>
-                <p><strong>Name:</strong> ${users[key].name}</p>
+                <p>Welcome ${users[key].name}! </p><br>
                 <p><strong>Amount:</strong> ${users[key].loanAmount}</p>
                 <p><strong>Interest:</strong> ${users[key].interestRate}</p>
                 <p><strong>Taken on:</strong> ${users[key].taken}</p>
