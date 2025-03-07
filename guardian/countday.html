@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Calculator</title>
     <style>
-          @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Red+Hat+Display:ital,wght@0,300..900&family=Strait&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap');
 
-* {
-    font-family: "Red Hat Display", sans-serif;
-}
+        * {
+            font-family: "Red Hat Display", sans-serif;
+        }
         body {
-            /* font-family: 'Verdana', Geneva, Tahoma, sans-serif; */
             margin: 0;
             display: flex;
             justify-content: center;
@@ -32,7 +31,6 @@
         input, button {
             margin: 10px 0;
             width: 85%;
-
             color: #ffffff;
             background: #1b1b1beb;
             border: none;
@@ -43,17 +41,16 @@
         }
         button {
             background: #393939;
-            cursor: pointer;    width: 35%;
-
+            cursor: pointer;
+            width: 35%;
             transition: background 0.3s;
         }
-      
         .output {
             margin-top: 20px;
-    font-weight: 600;
-    color: #00ffc2;
-    background: rgba(0, 0, 0, 0);
-    padding: 10px;
+            font-weight: 600;
+            color: #00ffc2;
+            background: rgba(0, 0, 0, 0);
+            padding: 10px;
         }
     </style>
 </head>
@@ -68,7 +65,7 @@
         <input type="text" id="dayCount" placeholder="Enter number of days" min="0"> 
         <button onclick="calculateDateRange()">Date</button>
 
-        
+        <input type="text" id="monthInput" placeholder="Enter month number (1-12)" oninput="displayMonthName()">
     </div>
 
     <script>
@@ -141,6 +138,15 @@
             end.setDate(start.getDate() + dayCount);
             
             output.innerHTML = `<p>No of days: ${dayCount}</p><p>Start Date: ${formatDate(start)}</p><p>End Date: ${formatDate(end)}</p>`;
+        }
+
+        function displayMonthName() {
+            const monthNumber = document.getElementById('monthInput').value;
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            if (monthNumber >= 1 && monthNumber <= 12) {
+                alert(`Month: ${months[monthNumber - 1]}`);
+            }
         }
     </script>
 </body>
