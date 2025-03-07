@@ -5,79 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Calculator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Red+Hat+Display:ital,wght@0,300..900&family=Strait&display=swap');
-        
-        * {
-            font-family: "Red Hat Display", sans-serif;
-        }
-        *{
-            color: rgb(190, 190, 190);
-        }
+          @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Red+Hat+Display:ital,wght@0,300..900&family=Strait&display=swap');
+
+* {
+    font-family: "Red Hat Display", sans-serif;
+}
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            position: fixed;
-            background-color: #111111;
+            /* font-family: 'Verdana', Geneva, Tahoma, sans-serif; */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
         }
         .container {
             max-width: 400px;
-            margin: 0 auto;
+            background: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #f0a500;
         }
         input, button {
             margin: 10px 0;
-    color: #ababab;
-    background: #282828;
-    border: none;
-    outline: none;
-    padding: 10px;
+            width: 85%;
+
+            color: #ffffff;
+            background: #1b1b1beb;
+            border: none;
+            outline: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
         }
+        button {
+            background: #393939;
+            cursor: pointer;    width: 35%;
+
+            transition: background 0.3s;
+        }
+      
         .output {
             margin-top: 20px;
-    font-weight: bold;
-    background: #0000004d;
+    font-weight: 600;
+    color: #00ff35;
+    background: black;
     padding: 10px;
-    text-align: center;
-    border-radius: 13px;
-    position: fixed;
-    bottom: 30px;
-        }
-        select{
-            background-color: #3c3c3c;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Date Calculator</h1>
-        <p>Enter the number of days:</p>
-        <input type="number" id="daysInput" placeholder="Enter number of days" min="0">
-        <button onclick="calculateDate()"  style="    position: fixed;
-        top: 65%;
-        right: 0%;">Calculate Date</button>
+        <input type="text" id="daysInput" placeholder="Enter number of days" min="0">
+        <button onclick="calculateDate()">Date</button>
 
-        <p>Or select a date to see how many days it is from today:</p>
         <input type="date" id="dateInput" onchange="calculateDaysFromDate()">
-
         <div class="output" id="output"></div>
+        <input type="date" id="startDate"> 
+        <input type="text" id="dayCount" placeholder="Enter number of days" min="0"> 
+        <button onclick="calculateDateRange()">Date</button>
+
+        
     </div>
 
     <script>
+        function formatDate(date) {
+            let day = date.getDate().toString().padStart(2, '0');
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        function evaluateExpression(input) {
+            try {
+                return new Function('return ' + input)();
+            } catch {
+                return NaN;
+            }
+        }
+
         function calculateDate() {
-            const daysInput = document.getElementById('daysInput').value;
+            let daysInput = document.getElementById('daysInput').value;
+            daysInput = evaluateExpression(daysInput);
             const output = document.getElementById('output');
 
-            if (daysInput === '' || isNaN(daysInput) || parseInt(daysInput) < 0) {
+            if (isNaN(daysInput) || daysInput < 0) {
                 output.textContent = 'Please enter a valid number of days.';
                 return;
             }
 
-            const days = parseInt(daysInput);
             const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() + days);
+            currentDate.setDate(currentDate.getDate() + daysInput);
 
-            const futureDate = currentDate.toDateString();
-
-            output.textContent = `Days will be: ${futureDate}`;
+            output.textContent = formatDate(currentDate);
         }
 
         function calculateDaysFromDate() {
@@ -92,15 +116,32 @@
             const selectedDate = new Date(dateInput);
             const currentDate = new Date();
 
-            // Calculate the difference in days
             const timeDifference = selectedDate - currentDate;
             const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
             if (daysDifference >= 0) {
-                output.textContent = `Days left: ${daysDifference}.`;
+                output.textContent = `${daysDifference} days (${formatDate(selectedDate)})`;
             } else {
-                output.textContent = `Days passed: ${Math.abs(daysDifference)}.`;
+                output.textContent = `${Math.abs(daysDifference)} days ago (${formatDate(selectedDate)})`;
             }
+        }
+
+        function calculateDateRange() {
+            const startDate = document.getElementById('startDate').value;
+            let dayCount = document.getElementById('dayCount').value;
+            dayCount = evaluateExpression(dayCount);
+            const output = document.getElementById('output');
+
+            if (!startDate || isNaN(dayCount) || dayCount < 0) {
+                output.textContent = 'Please enter a valid date and number of days.';
+                return;
+            }
+
+            const start = new Date(startDate);
+            const end = new Date(start);
+            end.setDate(start.getDate() + dayCount);
+            
+            output.innerHTML = `<p>No of days: ${dayCount}</p><p>Start Date: ${formatDate(start)}</p><p>End Date: ${formatDate(end)}</p>`;
         }
     </script>
 </body>
