@@ -3,78 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC</title>
+    <title>Interest Calculator & Click Counter</title>
     <style>
         body {
-            font-family: "Verdana, Geneva, Tahoma, sans-serif";
-            background-color: #282828;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background: #121212;
             color: white;
             text-align: center;
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex
-;
-    justify-content: center;
-    align-items: center;
-        }
-        .container {
-            width: 80%;
-            max-width: 400px;
-            margin: 30px auto;
             padding: 20px;
-            border: 2px solid black;
-            background-color: #3c3c3c;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+            height: 100vh;
+            display: flex;
+            justify-self: center;
+            align-items: center;
+            flex-direction: column;
         }
+
+        .container {
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 8px;
+            width: 90%;
+        }
+
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-decoration: underline;
-        }
-        .number-display {
             font-size: 20px;
-            margin: 20px 0;
-            padding: 12px;
-            background-color: #555;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
+            margin-bottom: 15px;
         }
-        button {
-            font-size: 18px;
-            padding: 12px 20px;
-            background-color: #ff9800;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        button:hover {
-            background-color: #e68900;
-        }
-        .interest-calculator input {
-            font-size: 18px;
-            margin: 10px;
-            background: #686868;
-            border: none;
+
+        input {
+            width: calc(100% - 20px);
             padding: 10px;
-            color: white;
-            outline: none;
-            width: calc(100% - 40px);
+            margin: 5px 0;
+            border: none;
             border-radius: 5px;
-            text-align: center;
+            background: #333;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background: #008CBA;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0077a3;
+        }
+
+        .number-display {
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container interest-calculator">
-        <h1>IC</h1>
+    <!-- Interest Calculator -->
+    <div class="container">
+        <h1>Interest Calculator (₹, Daily)</h1>
         <input type="number" id="principal" placeholder="Amount (₹)" />
         <input type="number" id="rate" placeholder="Interest Rate (%) Per Month" />
         <input type="number" id="time" placeholder="Time (Days)" />
@@ -82,19 +80,36 @@
         <div class="number-display" id="interestResult">₹ 0.00</div>
     </div>
 
+    <!-- Click Counter -->
+    <div class="container">
+        <h1>Click Counter</h1>
+        <p>Click Count: <span id="count">0</span></p>
+        <button onclick="updateCount(1)">+</button>
+        <button onclick="updateCount(-1)">-</button>
+    </div>
+
     <script>
         function calculateInterest() {
             const principal = parseFloat(document.getElementById('principal').value);
             const rate = parseFloat(document.getElementById('rate').value);
-            const time = parseFloat(document.getElementById('time').value); // Time in days
+            const time = parseFloat(document.getElementById('time').value);
 
             if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal <= 0 || rate <= 0 || time <= 0) {
-                document.getElementById('interestResult').textContent = "Enter valid positive numbers!";
+                document.getElementById('interestResult').textContent = "Enter valid numbers!";
                 return;
             }
 
-            const interest = (principal * rate * time) / (100 * 30); // Monthly rate, time in days
+            const interest = (principal * rate * time) / (100 * 30);
             document.getElementById('interestResult').textContent = `Interest: ₹ ${interest.toFixed(2)}`;
+        }
+
+        let count = localStorage.getItem("clickCount") ? parseInt(localStorage.getItem("clickCount")) : 0;
+        document.getElementById("count").textContent = count;
+        
+        function updateCount(value) {
+            count += value;
+            localStorage.setItem("clickCount", count);
+            document.getElementById("count").textContent = count;
         }
     </script>
 
