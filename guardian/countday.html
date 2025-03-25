@@ -66,6 +66,11 @@
         <button onclick="calculateDateRange()">Date</button>
 
         <input type="text" id="monthInput" placeholder="Enter month number (1-12)" oninput="displayMonthName()">
+        
+        <!-- New Time Calculation Section -->
+        <input type="time" id="startTime" placeholder="Start time">
+        <input type="time" id="endTime" placeholder="End time">
+        <button onclick="calculateTimeDifference()">Calculate Minutes</button>
     </div>
 
     <script>
@@ -147,6 +152,33 @@
             if (monthNumber >= 1 && monthNumber <= 12) {
                 alert(`Month: ${months[monthNumber - 1]}`);
             }
+        }
+
+        // New function to calculate time difference in minutes
+        function calculateTimeDifference() {
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const output = document.getElementById('output');
+
+            if (!startTime || !endTime) {
+                output.textContent = 'Please enter both start and end times.';
+                return;
+            }
+
+            const [startHours, startMinutes] = startTime.split(':').map(Number);
+            const [endHours, endMinutes] = endTime.split(':').map(Number);
+
+            const startTotalMinutes = startHours * 60 + startMinutes;
+            let endTotalMinutes = endHours * 60 + endMinutes;
+
+            // Handle case where end time is on the next day
+            if (endTotalMinutes < startTotalMinutes) {
+                endTotalMinutes += 24 * 60; // Add 24 hours worth of minutes
+            }
+
+            const differenceInMinutes = endTotalMinutes - startTotalMinutes;
+
+            output.textContent = `Time difference: ${differenceInMinutes} minutes`;
         }
     </script>
 </body>
