@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Calculator</title>
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        .calculator {
+            width: 340px;
+            padding: 25px;
+            background: linear-gradient(145deg, #2a2a2a, #252525);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+        .display {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 24px;
+            box-sizing: border-box;
+            background-color: #353535;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: right;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        button {
+            padding: 18px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #3c3c3c;
+            color: #ffffff;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #4a4a4a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        }
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .operator {
+            background-color: #ff8c00;
+            color: #ffffff;
+        }
+        .operator:hover {
+            background-color: #e07b00;
+        }
+        .history-toggle {
+            position: fixed;
+    top: 10px;
+    right: 10px;
+            background: none;
+            border: none;
+            color: #ff8c00;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .history-toggle:hover {
+            color: #e07b00;
+        }
+        .history-sidebar {
+            position: fixed;
+            top: 0;
+            left: -450px;
+            width: 300px;
+            height: 100%;
+            background: #303030;
+            padding: 20px;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
+            transition: left 0.3s ease;
+            z-index: 2;
+            color: #d0d0d0;
+            font-size: 14px;
+        }
+        .history-sidebar.open {
+            left: 0;
+        }
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+        .clear-history {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #ff4444;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clear-history:hover {
+            background-color: #e03333;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0;
+            padding: 6px 10px;
+            background: #383838;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            background: #404040;
+        }
+        .delete-btn {
+            padding: 4px 8px;
+            font-size: 10px;
+            background-color: #ff5555;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .delete-btn:hover {
+            background-color: #e04444;
+        }
+        .history-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .history-sidebar::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+        .history-sidebar::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 3px;
+        }
+        .history-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 30px;
+            }
+            .calculator {
+                width: 100%;
+                max-width: 320px;
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .display {
+                height: 50px;
+                font-size: 20px;
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+            .buttons {
+                gap: 6px;
+            }
+            button {
+                padding: 14px;
+                font-size: 16px;
+            }
+            .history-toggle {
+                position: fixed;
+    top: 10px;
+    right: 10px;
+                font-size: 18px;
+            }
+            .history-sidebar {
+                width: 250px;
+                left: -450px;
+                padding: 15px;
+            }
+            .history-sidebar.open {
+                left: 0;
+            }
+            .history-header {
+                margin-bottom: 10px;
+            }
+            .clear-history {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+            .history-item {
+                margin: 6px 0;
+                padding: 5px 8px;
+                font-size: 13px;
+            }
+            .delete-btn {
+                padding: 3px 6px;
+                font-size: 9px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 400px) {
+            .calculator {
+                max-width: 280px;
+        padding: 55px;
+        background: no-repeat;
+            }
+            .display {
+                height: 45px;
+                font-size: 18px;
+            }
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+            .history-sidebar {
+                width: 200px;
+                left: -450px;
+            }
+            .history-toggle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <input type="text" class="display" id="display" readonly>
+            <button class="history-toggle" onclick="toggleHistory()">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </button>
+            <div class="buttons">
+                <button onclick="appendToDisplay('C')">C</button>
+                <button onclick="appendToDisplay('(')">(</button>
+                <button onclick="appendToDisplay(')')">)</button>
+                <button class="operator" onclick="appendToDisplay('/')">/</button>
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button class="operator" onclick="appendToDisplay('*')">×</button>
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button class="operator" onclick="appendToDisplay('-')">-</button>
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button class="operator" onclick="appendToDisplay('+')">+</button>
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                <button onclick="deleteLast()">⌫</button>
+                <button class="operator" onclick="calculate()">=</button>
+            </div>
+        </div>
+        <div class="history-sidebar" id="historySidebar">
+            <div class="history-header">
+                <span>History</span>
+                <button class="clear-history" onclick="clearHistory()">Clear All</button>
+            </div>
+            <div id="historyItems"></div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            loadHistory();
+            if (!isMobileDevice()) {
+                document.addEventListener('keydown', handleKeyPress);
+            }
+        };
+
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                   (window.innerWidth <= 768 && 'ontouchstart' in window);
+        }
+
+        function appendToDisplay(value) {
+            if (value === 'C') {
+                clearDisplay();
+                return;
+            }
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function deleteLast() {
+            let current = document.getElementById('display').value;
+            document.getElementById('display').value = current.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                let expression = document.getElementById('display').value;
+                let result = eval(expression);
+                document.getElementById('display').value = result;
+                saveToHistory(expression, result);
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        function saveToHistory(expression, result) {
+            let history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+            history.unshift(expression + ' = ' + result);
+            if (history.length > 10) history.pop();
+            localStorage.setItem('calcHistory', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            let history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+            let historyItems = document.getElementById('historyItems');
+            historyItems.innerHTML = '';
+            history.forEach((item, index) => {
+                let div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `
+                    <span>${item}</span>
+                    <button class="delete-btn" onclick="deleteHistoryItem(${index})">X</button>
+                `;
+                historyItems.appendChild(div);
+            });
+        }
+
+        function deleteHistoryItem(index) {
+            let history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('calcHistory', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('calcHistory');
+            loadHistory();
+        }
+
+        function toggleHistory() {
+            const sidebar = document.getElementById('historySidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function handleKeyPress(event) {
+            const key = event.key;
+            switch (key) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    appendToDisplay(key);
+                    break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    appendToDisplay(key);
+                    break;
+                case '.':
+                    appendToDisplay('.');
+                    break;
+                case '(':
+                case ')':
+                    appendToDisplay(key);
+                    break;
+                case 'Enter':
+                    event.preventDefault();
+                    calculate();
+                    break;
+                case 'Backspace':
+                    deleteLast();
+                    break;
+                case 'Escape':
+                    clearDisplay();
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
