@@ -215,6 +215,16 @@
   <button id="add-transaction">Add Transaction</button><br>
   <button id="open-calculator" style="margin-top: 10px;">Open Calculator</button>
 
+  <!-- Filter Dropdown -->
+  <div class="form-group" style="margin-top: 20px;">
+    <label for="filter-type">Filter Transactions:</label>
+    <select id="filter-type" onchange="renderTransactions()">
+      <option value="all">All</option>
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+  </div>
+
   <!-- Transactions Table -->
   <table class="transaction-table">
     <thead>
@@ -288,10 +298,10 @@
 
   function loadTransactions() {
     transactions.forEach((transaction, index) => {
-      addTransactionToTable(transaction, index);
       balance += transaction.type === "income" ? transaction.amount : -transaction.amount;
     });
     updateBalance();
+    renderTransactions();
   }
 
   function saveTransactions() {
@@ -309,8 +319,13 @@
 
   function renderTransactions() {
     const transactionList = document.getElementById("transaction-list");
+    const filterType = document.getElementById("filter-type").value;
     transactionList.innerHTML = "";
-    transactions.forEach((transaction, index) => addTransactionToTable(transaction, index));
+    transactions.forEach((transaction, index) => {
+      if (filterType === "all" || transaction.type === filterType) {
+        addTransactionToTable(transaction, index);
+      }
+    });
   }
 
   document.getElementById("add-transaction").addEventListener("click", () => {
