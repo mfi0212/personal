@@ -320,7 +320,7 @@ body {
             z-index: 1999;
             display: none;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 450px) {
             .container {
                 flex-direction: column;
             }
@@ -347,7 +347,7 @@ body {
                 font-size: 18px;
             }
             .input-container {
-                bottom: 70px;
+                bottom: 80px;
                 background: rgb(30 30 30);
                 width: 69%;
             }
@@ -365,10 +365,8 @@ body {
                 padding: 5px 10px;
             }
             .chat-box {
-                position: relative;
                 width: 80%;
-                top: 100px;
-                max-height: 390px;
+        max-height: 380px;
             }
             .chat-header {
                 font-size: 18px;
@@ -396,7 +394,9 @@ body {
         <div class="sidebar">
             <div class="logo" style="position: fixed; color: rgb(0 96 255); right: 10px; top: 20px; z-index: 1000; font-size: 20px; font-weight: 600;">#BsNote</div>
             <ul class="user-list" id="userList"></ul>
-            <button class="addbtn" onclick="addUser()"><i class="fa-solid fa-circle-plus"></i></button>
+            <button style="width: 24%;max-width: 100px;
+    text-align: end;
+    background: #282828;border-radius: 34px;" class="addbtn" onclick="addUser()"><i class="fa-solid fa-circle-plus"></i></button>
         </div>
         <div class="main-content">
             <div class="chat-header" id="chatHeader">Welcome to BsNote</div>
