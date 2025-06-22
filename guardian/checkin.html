@@ -11,6 +11,15 @@
             font-family: "Red Hat Display", sans-serif;
             letter-spacing: 0.5px;
         }
+        * {
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
         body {
             background-color: #181818;
             display: flex;
@@ -27,23 +36,22 @@
         }
         form#routineForm {
             height: 460px;
-    overflow: scroll;
-    margin-top: 20px;
-}
-h2 {
-    text-align: center;
-    font-weight: 300;
-}
-::-webkit-scrollbar{
-    width: 0px;
-    background-color: transparent;
-}
+            overflow: scroll;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+            font-weight: 300;
+        }
+        ::-webkit-scrollbar {
+            width: 0px;
+            background-color: transparent;
+        }
         .routine-item {
             margin: 10px 0;
             background: #181818;
             padding: 15px;
             border-left: solid 4px #0e4bff;
-            text-align: end;
         }
         .routine-item input[type="checkbox"] {
             margin-right: 10px;
@@ -65,6 +73,11 @@ h2 {
             font-size: 18px;
             font-weight: bold;
         }
+        .due-steps {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ff4444; /* Red to highlight due steps */
+        }
     </style>
 </head>
 <body>
@@ -74,72 +87,76 @@ h2 {
         <form id="routineForm"></form>
         <button class="btn-submit" id="submitBtn">Submit</button>
         <div class="result-message" id="resultMessage"></div>
+        <div class="due-steps" id="dueSteps"></div>
     </div>
 
     <script>
         const routineForm = document.getElementById('routineForm');
         const submitBtn = document.getElementById('submitBtn');
         const resultMessage = document.getElementById('resultMessage');
-    
+        const dueStepsDisplay = document.getElementById('dueSteps');
+
         let routines = JSON.parse(localStorage.getItem('userRoutines')) || [];
-        const punishments = [
-            "Drink 2 bottles of water.",
-            "Sit 1 hour outside.",
-            "Take a 15-minute walk.",
-            "Don't sit on bed for 1 hour.",
-            "Spend 1 hour outside the room.",
-        ];
-    
-        // Function to convert 24-hour format to 12-hour format
-        function convertTo12HourFormat(time) {
-            const [hour, minute] = time.split(':');
-            let hour12 = hour % 12 || 12; // Convert hour to 12-hour format
-            const ampm = hour >= 12 ? 'PM' : 'AM';
-            return `${hour12}:${minute} ${ampm}`;
-        }
-    
+        let dueSteps = parseInt(localStorage.getItem('dueSteps')) || 0;
+
         function displayCheckInRoutines() {
             routineForm.innerHTML = '';
+            if (routines.length === 0) {
+                routineForm.innerHTML = '<p>No routines added yet.</p>';
+                return;
+            }
             routines.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = 'routine-item';
                 const checked = item.checked ? 'checked' : '';
-    
-                // Convert item.time to 12-hour format before displaying
-                const time12Hour = convertTo12HourFormat(item.time);
+
                 div.innerHTML = `
                     <input type="checkbox" id="routine${index}" ${checked}>
-                    <label for="routine${index}">${time12Hour} - ${item.routine}</label>
+                    <label for="routine${index}">${item.routine}</label>
                 `;
                 routineForm.appendChild(div);
-    
+
                 const checkbox = document.getElementById(`routine${index}`);
                 checkbox.addEventListener('change', () => {
                     item.checked = checkbox.checked;
                     localStorage.setItem('userRoutines', JSON.stringify(routines));
                 });
             });
+            updateDueStepsDisplay();
         }
-    
+
+        function updateDueStepsDisplay() {
+            dueStepsDisplay.textContent = `Due Steps: ${dueSteps}`;
+        }
+
         submitBtn.addEventListener('click', () => {
             let allUnchecked = true;
+            let uncheckedCount = 0;
+
             routines.forEach((item) => {
                 if (item.checked) {
                     allUnchecked = false;
+                } else {
+                    uncheckedCount++;
                 }
             });
-    
+
+            // Add 200 steps per unchecked routine
+            dueSteps += uncheckedCount * 200;
+            localStorage.setItem('dueSteps', dueSteps);
+
             if (allUnchecked) {
-                const randomPunishment = punishments[Math.floor(Math.random() * punishments.length)];
-                resultMessage.textContent = `You didn’t complete any tasks. Punishment: ${randomPunishment}`;
+                resultMessage.textContent = 'No tasks completed.';
             } else {
-                resultMessage.textContent = "Good job!";
+                resultMessage.textContent = 'Good job!';
             }
+
+            updateDueStepsDisplay();
         });
-    
+
         displayCheckInRoutines();
     </script>
-    <div class="add" style="position: fixed;bottom: 10px;">
+    <div class="add" style="position: fixed; bottom: 10px;">
         <a href="routine.html"><button>Add routines</button></a>
     </div>
 </body>
