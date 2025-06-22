@@ -1,18 +1,43 @@
-document.getElementById('addButton').addEventListener('click', function() {
-    const routine = document.getElementById('routineInput').value;
-    const time = document.getElementById('routineTime').value;
+document.addEventListener('DOMContentLoaded', () => {
+    const addButton = document.getElementById('addButton');
+    const routineInput = document.getElementById('routineInput');
 
-    if (routine) {
-        const routines = JSON.parse(localStorage.getItem('userRoutines')) || [];
-        routines.push({ routine, time });
-        localStorage.setItem('userRoutines', JSON.stringify(routines));
+    // Add routine when button is clicked
+    addButton.addEventListener('click', () => {
+        const routine = routineInput.value.trim();
 
-        document.getElementById('routineInput').value = ''; // Clear input
-        document.getElementById('routineTime').value = '08:00'; // Reset time input
-        updateRoutineList();
-    } else {
-        // alert("Enter a routine!");
-    }
+        if (routine) {
+            const routines = JSON.parse(localStorage.getItem('userRoutines')) || [];
+            routines.push({ routine }); // Store only the routine text
+            localStorage.setItem('userRoutines', JSON.stringify(routines));
+
+            routineInput.value = ''; // Clear input
+            updateRoutineList();
+        }
+    });
+
+    // Allow adding routine by pressing Enter key
+    routineInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addButton.click();
+        }
+    });
+
+    // Create and append Check In button
+    const checkInButton = document.createElement('button');
+    checkInButton.textContent = 'Check In';
+    checkInButton.classList.add('btn-add'); // Reuse btn-add styling
+    checkInButton.style.marginTop = '15px'; // Add some spacing
+    checkInButton.style.display = 'block'; // Ensure it takes full width
+    checkInButton.style.marginLeft = 'auto';
+    checkInButton.style.marginRight = 'auto';
+    checkInButton.onclick = () => {
+        window.location.href = 'checkin.html'; // Navigate to checkin page
+    };
+    document.querySelector('.daily-routine-section').appendChild(checkInButton);
+
+    // Initialize routine list
+    initializeRoutineTracker();
 });
 
 function updateRoutineList() {
@@ -24,23 +49,8 @@ function updateRoutineList() {
         const routineItem = document.createElement('div');
         routineItem.classList.add('routine-item');
 
-        const timeParts = item.time.split(':'); // Split the time string into hours and minutes
-        const hours = parseInt(timeParts[0], 10); // Parse the hours as an integer
-        const minutes = parseInt(timeParts[1], 10); // Parse the minutes as an integer
-
-        let formattedTime;
-        if (hours === 0) {
-            formattedTime = `12:${minutes.toString().padStart(2, '0')} AM`; // Format as 12-hour format with AM/PM
-        } else if (hours < 12) {
-            formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} AM`;
-        } else if (hours === 12) {
-            formattedTime = `12:${minutes.toString().padStart(2, '0')} PM`;
-        } else {
-            formattedTime = `${(hours - 12).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} PM`;
-        }
-
         routineItem.innerHTML = `
-            <span>At : ${formattedTime} - ${item.routine}</span>
+            <span>${item.routine}</span>
             <button class="btn-remove" onclick="removeRoutine(${index})">X</button>
         `;
 
@@ -58,12 +68,3 @@ function removeRoutine(index) {
 function initializeRoutineTracker() {
     updateRoutineList();
 }
-
-initializeRoutineTracker();
-
-// Add a button to navigate to the check-in page
-
-checkInButton.onclick = function() {
-    window.location.href = 'checkin.html'; // Change this path if needed
-};
-document.querySelector('.daily-routine-section').appendChild(checkInButton);
