@@ -34,11 +34,11 @@ body {
     }
 
     h1 {
-           color: #0058ff;
-    font-size: 1.8em;
-    font-weight: 800;
-    margin: 120px 0px 0px 0px;
-    position: relative;
+      color: #0058ff;
+      font-size: 1.8em;
+      font-weight: 800;
+      margin: 120px 0px 0px 0px;
+      position: relative;
     }
 
     a {
@@ -53,16 +53,15 @@ body {
     }
 
     .balance-display {
-         font-size: 20px;
-    color: #ffffff;
-    background: #2f2f2f;
-    padding: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px 1000px rgb(23 23 23 / 66%);
-    display: flex
-;
-    justify-content: space-around;
+      font-size: 20px;
+      color: #ffffff;
+      background: #3c3c3c;
+      padding: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px 1000px rgb(23 23 23 / 66%);
+      display: flex;
+      justify-content: space-around;
     }
 
     .form-group {
@@ -70,16 +69,18 @@ body {
     }
 
     .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-      color: #ffffff;
+     display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+    color: #0060ff;
+    text-align: justify;
+    padding: 10px 10px 0px 3px;
     }
 
     .form-group input, .form-group select {
       padding: 8px;
       border: 1px solid #404040;
-      border-radius: 4px;
+      border-radius: 0px;
       background-color: #252526;
       color: #ffffff;
       width: 100%;
@@ -103,7 +104,7 @@ body {
     }
 
     .transaction-table-container {
-      max-height: 600px;
+      max-height: 500px;
       overflow-y: auto;
       width: 100%;
       margin-top: 20px;
@@ -117,21 +118,30 @@ body {
     }
 
     .transaction-table th, .transaction-table td {
-         padding: 8px;
-    border: 1px solid #4040407a;
+     padding: 8px;
+    border: 1px solid #404040;
     text-align: center;
     color: gray;
     font-size: 15px;
     font-weight: 600;
     text-transform: capitalize;
-    background: #ffffff12;
+    background: #ffffff00;
     }
 
     .transaction-table th {
-      background-color: #252526;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+     background-color: #3c3c3c;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    color: #ffffffc9;
+    }
+
+    .transaction-table .income {
+      color: #00ff00a3; /* Green for income */
+    }
+
+    .transaction-table .expense {
+      color: #ff0000b3; /* Red for expenses */
     }
 
     .delete-btn {
@@ -195,8 +205,8 @@ body {
     .period-slider {
       position: fixed;
       top: 0;
-      right: -400px;
-      width: 350px;
+      right: -800px;
+      width: 450px;
       height: 100vh;
       background-color: #252526;
       padding: 20px;
@@ -206,6 +216,7 @@ body {
       display: flex;
       flex-direction: column;
       gap: 10px;
+          filter: drop-shadow(2px 4px 16px black);
     }
 
     .period-slider.active {
@@ -220,13 +231,43 @@ body {
     }
 
     .period-result {
-      color: #ffffff;
-      margin-top: 15px;
-      font-size: 0.9em;
+     color: #ffffff;
+    margin-top: 15px;
+    font-size: 0.9em;
+    line-height: 30px;
+    background: #00000080;
+    padding: 10px 15px;
+    
     }
 
     .period-result p {
       margin: 5px 0;
+    }
+
+    .period-result .days-between {
+      color: #00ccffba; /* Cyan for days between */
+      font-weight: bold;
+    }
+
+    .period-result .income {
+      color: #00ff00a3;
+    background: #ffffff14;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    }
+
+    .period-result .expense {
+      color: #ff0000;
+    background: #ffffff14;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    }
+
+    .period-result .net-balance {
+      color: #ffd800d9; /* Gold for net balance */
+      font-weight: bold;
     }
 
     .close-period-slider {
@@ -286,8 +327,6 @@ body {
       z-index: 1100;
     }
 
-    
-
     /* Filter Dropdown */
     .form-group.filter {
       position: fixed;
@@ -322,7 +361,7 @@ body {
       }
 
       .transaction-table-container {
-        max-height: 600px;
+        max-height: 500px;
       }
 
       .toggle-form-btn, .toggle-period-btn {
@@ -381,7 +420,7 @@ body {
       </div>
       <div class="form-group">
         <label for="transaction-date">Date:</label>
-        <input type="date" id="transaction-date" value="2025-09-12">
+        <input type="date" id="transaction-date">
       </div>
       <div class="options">
         <button id="add-transaction">Add Transaction</button>
@@ -423,11 +462,11 @@ body {
     <h2>Period Summary</h2>
     <div class="form-group">
       <label for="start-date">Start Date:</label>
-      <input type="date" id="start-date" value="2025-09-12">
+      <input type="date" id="start-date">
     </div>
     <div class="form-group">
       <label for="end-date">End Date:</label>
-      <input type="date" id="end-date" value="2025-09-12">
+      <input type="date" id="end-date">
     </div>
     <div class="form-group">
       <label for="period-type">Show Details For:</label>
@@ -444,6 +483,14 @@ body {
   <script>
     let balance = 0;
     let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    // Set default date to current system date
+    function setDefaultDates() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById("transaction-date").value = today;
+      document.getElementById("start-date").value = today;
+      document.getElementById("end-date").value = today;
+    }
 
     // Toggle Transaction Popup
     document.getElementById("toggle-form").addEventListener("click", () => {
@@ -491,9 +538,9 @@ body {
       row.innerHTML = `
         <td>${transaction.description}</td>
         <td>${transaction.amount.toFixed(0)}</td>
-        <td>${transaction.type}</td>
+        <td class="${transaction.type}">${transaction.type}</td>
         <td>${formatDate(transaction.date)}</td>
-        <td  style='text-align: center;'><button class="delete-btn" onclick="deleteTransaction(${index})"><i class="fa-solid fa-square-minus"></i></button></td>
+        <td style='text-align: center;'><button class="delete-btn" onclick="deleteTransaction(${index})"><i class="fa-solid fa-square-minus"></i></button></td>
       `;
       transactionList.appendChild(row);
     }
@@ -561,7 +608,7 @@ body {
 
       document.getElementById("transaction-description").value = "";
       document.getElementById("transaction-amount").value = "";
-      document.getElementById("transaction-date").value = "2025-09-12";
+      document.getElementById("transaction-date").value = new Date().toISOString().split('T')[0];
       document.getElementById("transaction-popup").classList.remove("active");
       document.getElementById("toggle-form").textContent = "+";
     });
@@ -598,16 +645,16 @@ body {
 
       listedTransactions.forEach(t => {
         const verb = t.type === "expense" ? "spent" : "received";
-        const onFrom = t.type === "expense" ? "on" : "from";
-        listHtml += `<p>You ${verb}: ${t.amount.toFixed(2)}rs ${onFrom} ${t.description}</p>`;
+        const onFrom = t.type === "expense" ? "on" : "for";
+        listHtml += `<p class="${t.type}">You ${verb}: ${t.amount.toFixed(0)} rs ${onFrom} ${t.description}</p>`;
         total += t.type === "expense" ? (periodType === "all" ? -t.amount : t.amount) : (periodType === "all" ? t.amount : t.amount);
       });
 
       const resultDiv = document.getElementById("period-result");
       const typeLabel = periodType === "all" ? "Net Balance" : periodType.charAt(0).toUpperCase() + periodType.slice(1);
       resultDiv.innerHTML = `
-        <p>No. of days between: ${days}</p>
-        <p>${typeLabel} on ${days} days: ${total.toFixed(2)}</p>
+        <p class="days-between">No of days between : ${days}</p>
+        <p class="net-balance">Total ${typeLabel} on ${days} was : ${total.toFixed(0)}</p>
         ${listHtml}
       `;
     });
@@ -616,25 +663,26 @@ body {
     document.getElementById("transaction-popup").classList.remove("active");
     document.getElementById("period-slider").classList.remove("active");
     loadTransactions();
+    setDefaultDates(); // Set default dates on load
         
-        document.addEventListener("DOMContentLoaded", () => {
-            const customMenu = document.querySelector(".custom-menu");
+    document.addEventListener("DOMContentLoaded", () => {
+      const customMenu = document.querySelector(".custom-menu");
 
-            document.addEventListener("contextmenu", (event) => {
-                event.preventDefault();
-                if (customMenu) {
-                    customMenu.style.display = "block";
-                    customMenu.style.top = `${event.pageY}px`;
-                    customMenu.style.left = `${event.pageX}px`;
-                }
-            });
+      document.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        if (customMenu) {
+          customMenu.style.display = "block";
+          customMenu.style.top = `${event.pageY}px`;
+          customMenu.style.left = `${event.pageX}px`;
+        }
+      });
 
-            document.addEventListener("click", () => {
-                if (customMenu) {
-                    customMenu.style.display = "none";
-                }
-            });
-        });
-    </script>
+      document.addEventListener("click", () => {
+        if (customMenu) {
+          customMenu.style.display = "none";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
