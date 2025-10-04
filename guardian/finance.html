@@ -381,9 +381,8 @@ body {
       }
 
       .transaction-popup {
-        width: 95vw;
-        max-width: 300px;
-        padding: 15px;
+        width: 90%;
+        padding: 20px;
       }
     }
   </style>
@@ -655,7 +654,7 @@ body {
       const typeLabel = periodType === "all" ? "Net Balance" : periodType.charAt(0).toUpperCase() + periodType.slice(1);
       resultDiv.innerHTML = `
         <p class="days-between">No of days between : ${days}</p>
-        <p class="net-balance">Total ${typeLabel} on ${days} was : ${total.toFixed(0)}</p>
+        <p class="net-balance">Total ${typeLabel} on ${days}(day/days) was : ${total.toFixed(0)}</p>
         ${listHtml}
       `;
     });
