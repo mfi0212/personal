@@ -565,28 +565,32 @@ body {
     }
 
     function renderTransactions() {
-      const transactionList = document.getElementById("transaction-list");
-      const filterType = document.getElementById("filter-type").value;
-      const balanceLabel = document.getElementById("balance-label");
-      const balanceDisplay = document.getElementById("balance");
+  const transactionList = document.getElementById("transaction-list");
+  const filterType = document.getElementById("filter-type").value;
+  const balanceLabel = document.getElementById("balance-label");
+  const balanceDisplay = document.getElementById("balance");
 
-      transactionList.innerHTML = "";
+  transactionList.innerHTML = "";
 
-      let typeTotal = 0;
-      transactions.forEach((transaction, index) => {
-        if (filterType === "all" || transaction.type === filterType) {
-          addTransactionToTable(transaction, index);
-          if (filterType === "all") {
-            typeTotal += transaction.type === "income" ? transaction.amount : -transaction.amount;
-          } else if (transaction.type === filterType) {
-            typeTotal += transaction.amount;
-          }
-        }
-      });
-
-      balanceLabel.innerText = filterType === "all" ? "Total ₹" : `Total ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`;
-      balanceDisplay.innerText = typeTotal.toFixed(2);
+  let typeTotal = 0;
+  // Create a reversed copy of the transactions array
+  const reversedTransactions = [...transactions].reverse();
+  reversedTransactions.forEach((transaction, reversedIndex) => {
+    if (filterType === "all" || transaction.type === filterType) {
+      // Calculate the original index in the transactions array
+      const originalIndex = transactions.length - 1 - reversedIndex;
+      addTransactionToTable(transaction, originalIndex);
+      if (filterType === "all") {
+        typeTotal += transaction.type === "income" ? transaction.amount : -transaction.amount;
+      } else if (transaction.type === filterType) {
+        typeTotal += transaction.amount;
+      }
     }
+  });
+
+  balanceLabel.innerText = filterType === "all" ? "Total ₹" : `Total ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`;
+  balanceDisplay.innerText = typeTotal.toFixed(2);
+}
 
     document.getElementById("add-transaction").addEventListener("click", () => {
       const type = document.getElementById("transaction-type").value;
