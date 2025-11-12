@@ -12,13 +12,12 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            height: 100vh;
             display: flex;
-            justify-self: center;
-            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
             flex-direction: column;
+            overflow-y: auto;
         }
-
         .container {
             background: #1e1e1e;
             padding: 20px;
@@ -27,12 +26,10 @@
             border-radius: 8px;
             width: 90%;
         }
-
         h1 {
             font-size: 20px;
             margin-bottom: 15px;
         }
-
         input {
             width: calc(100% - 20px);
             padding: 10px;
@@ -42,7 +39,6 @@
             background: #333;
             color: white;
         }
-
         button {
             width: 100%;
             padding: 10px;
@@ -54,17 +50,19 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
         button:hover {
             background: #0077a3;
         }
-
         .number-display {
             margin-top: 10px;
             font-size: 18px;
             padding: 10px;
             background: #333;
             border-radius: 5px;
+        }
+        .result-line {
+            margin: 8px 0;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -79,9 +77,17 @@
         <button onclick="calculateInterest()">Calculate Interest</button>
         <div class="number-display" id="interestResult">₹ 0.00</div>
     </div>
-
-    <!-- Click Counter -->
     <div class="container">
+        <h1>Percentage Deduction</h1>
+        <input type="number" id="totalAmount" placeholder="Total Amount (₹)" />
+        <input type="number" id="deductPercent" placeholder="Percentage to Deduct (%)" />
+        <button onclick="calculateDeduction()">Calculate Deduction</button>
+        <div class="number-display">
+            <div class="result-line" id="deductedAmount">Deducted: ₹ 0.00</div>
+            <div class="result-line" id="finalAmount">Final: ₹ 0.00</div>
+        </div>
+    </div>
+<div class="container">
         <h1>Click Counter</h1>
         <p>Click Count: <span id="count">0</span></p>
         <button onclick="updateCount(1)">+</button>
@@ -89,29 +95,46 @@
     </div>
 
     <script>
+        // === Interest Calculator ===
         function calculateInterest() {
             const principal = parseFloat(document.getElementById('principal').value);
             const rate = parseFloat(document.getElementById('rate').value);
             const time = parseFloat(document.getElementById('time').value);
-
             if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal <= 0 || rate <= 0 || time <= 0) {
                 document.getElementById('interestResult').textContent = "Enter valid numbers!";
                 return;
             }
-
             const interest = (principal * rate * time) / (100 * 30);
             document.getElementById('interestResult').textContent = `Interest: ₹ ${interest.toFixed(2)}`;
         }
 
+        // === Click Counter ===
         let count = localStorage.getItem("clickCount") ? parseInt(localStorage.getItem("clickCount")) : 0;
         document.getElementById("count").textContent = count;
-        
+       
         function updateCount(value) {
             count += value;
             localStorage.setItem("clickCount", count);
             document.getElementById("count").textContent = count;
         }
-    </script>
 
+        // === Percentage Deduction Calculator ===
+        function calculateDeduction() {
+            const total = parseFloat(document.getElementById('totalAmount').value);
+            const percent = parseFloat(document.getElementById('deductPercent').value);
+
+            if (isNaN(total) || isNaN(percent) || total <= 0 || percent < 0 || percent > 100) {
+                document.getElementById('deductedAmount').textContent = "Invalid input!";
+                document.getElementById('finalAmount').textContent = "";
+                return;
+            }
+
+            const deducted = (total * percent) / 100;
+            const final = total - deducted;
+
+            document.getElementById('deductedAmount').textContent = `Deducted: ₹ ${deducted.toFixed(2)}`;
+            document.getElementById('finalAmount').textContent = `Final: ₹ ${final.toFixed(2)}`;
+        }
+    </script>
 </body>
 </html>
