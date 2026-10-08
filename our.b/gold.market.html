@@ -58,7 +58,7 @@
         }
 .topoptions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     align-items: center;
     padding: 10px;
@@ -107,24 +107,46 @@
             color: var(--muted-foreground);
         }
 
-        /* ── Link list (flush rows) ── */
-        .link-list a {
-            display: block;
-            padding: 12px 16px;
-            color: var(--foreground);
-            text-decoration: none;
-            border-top: 1px solid var(--border);
-            font-size: 14px;
-            transition: background 0.1s;
+        /* ── Today's Rate Bar ── */
+        .rate-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            background: var(--card);
+            text-align: center;
+            gap: 6px;
         }
 
-        .link-list a:first-child {
-            border-top: none;
+        .rate-bar .rate-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted-foreground);
         }
 
-        .link-list a:hover {
-                background: var(--primary-foreground);
-    color: white;
+        .rate-bar .rate-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--primary-foreground);
+            background: var(--primary);
+            padding: 6px 16px;
+            min-width: 6em;
+        }
+
+        .rate-bar .rate-unit {
+            font-size: 12px;
+            color: var(--muted-foreground);
+            margin-top: 2px;
+        }
+
+        .rate-bar .rate-updated {
+            font-size: 11px;
+            color: var(--muted-foreground);
+            margin-top: 4px;
         }
 
         /* ── Calculator ── */
@@ -222,24 +244,26 @@ footer {
     </style>
 </head>
 <body>
-<div class="topoptions">
-    <a href="https://mfi0212.github.io/personal/our.b/user">Account</a>
-    <a href="https://mfi0212.github.io/personal/my.amount.tracker">My lend</a>
-</div>
     <div class="tool">
         <div class="tool-bar">
             <h1>Silver Market</h1>
         </div>
-        <div class="section">
-            <div class="link-list">
-               <a href="https://www.bankbazaar.com/silver-rate-amalapuram.html">అమలాపురం / Amalapuram</a>
-        <a href="https://www.indiagoldrate.co.in/silver-rate.php?area_id=4436">నరసాపురం / Narasapuram</a>
-            </div>
+        
+        <!-- Today's Rate Bar (update the value below yourself) -->
+        <div class="rate-bar">
+            <span class="rate-label">Today's Rate</span>
+            <span class="rate-value" id="today-rate">245/kg</span>
+            <span class="rate-updated">If any update in rate will update at 8 am daily</span>
         </div>
+        <span class="rate-updated">Bought at = 0/kg</span>
     </div>
 
     <div class="spacer"></div>
 
+        <div class="topoptions">
+    <a href="https://mfi0212.github.io/personal/our.b/user">My Account</a>
+    <!-- <a href="https://mfi0212.github.io/personal/my.amount.tracker">My lend</a> -->
+</div>
 
     <div class="spacer"></div>
 
@@ -250,16 +274,13 @@ footer {
         </div>
         <div class="calc-body">
             <div class="field">
-                <label>Low rate</label>
-                <input type="number" id="amount2" placeholder="0.00" oninput="calculate()">
+                <input type="number" id="amount2" placeholder="Low rate" oninput="calculate()">
             </div>
             <div class="field">
-                <label>High rate </label>
-                <input type="number" id="amount1" placeholder="0.00" oninput="calculate()">
+                <input type="number" id="amount1" placeholder="High rate" oninput="calculate()">
             </div>
             <div class="field">
-                <label>sell</label>
-                <input type="number" id="months" placeholder="0" oninput="calculate()">
+                <input type="number" id="months" placeholder="Enter selling times" oninput="calculate()">
             </div>
             <div class="result">
                 <div class="result-cell">
@@ -273,7 +294,7 @@ footer {
             </div>
         </div>
     </div>
-<footer>VSL, All right reserved. <br> Version(v.01.23.9)</footer>
+<footer>Efiles, All right reserved. <br> Version(v.01.23.9)</footer>
     <script>
         function calculate() {
             const a1 = parseFloat(document.getElementById('amount1').value) || 0;
