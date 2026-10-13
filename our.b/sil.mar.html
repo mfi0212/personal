@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BsRora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            font-size: 14px;
+            line-height: 1.4;
+            color: oklch(0.18 0.02 60);
+            background: oklch(0.985 0.002 90);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            min-height: 100vh;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .tool {
+            width: 100%;
+            max-width: 800px;
+            border: 2px solid oklch(0.82 0.015 80);
+            background: oklch(0.98 0.005 90);
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            max-height: 700px;
+        }
+
+        .tool-bar {
+            display: flex;
+            align-items: center;
+            min-height: 48px;
+            border-bottom: 2px solid oklch(0.82 0.015 80);
+            padding: 0 16px;
+            background: oklch(0.86 0.18 89.43);
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tool-bar h1 {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: oklch(0.18 0.04 80);
+        }
+
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            font-size: 14px;
+            line-height: 1.45;
+            word-wrap: break-word;
+        }
+
+        .msg.bot {
+            align-self: flex-start;
+            background: oklch(0.93 0.01 90);
+            border: 1px solid oklch(0.82 0.015 80);
+            color: oklch(0.18 0.02 60);
+        }
+
+        .msg.user {
+            align-self: flex-end;
+            background: oklch(0.86 0.18 89.43);
+            color: oklch(0.18 0.04 80);
+            font-weight: 500;
+        }
+
+        .msg.bot .highlight {
+            background: oklch(0.86 0.18 89.43);
+            color: oklch(0.18 0.04 80);
+            padding: 2px 8px;
+            font-weight: 600;
+        }
+
+        .input-area {
+            border-top: 2px solid oklch(0.82 0.015 80);
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            background: oklch(0.98 0.005 90);
+        }
+
+        .input-area input {
+            flex: 1;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: oklch(0.18 0.02 60);
+    background: oklch(0.985 0.002 90);
+    border: 1px solid oklch(0.82 0.015 80);
+    border-radius: 0;
+    outline: none;
+    width: 100px;
+        }
+
+        .input-area input:focus {
+            border-color: oklch(0.86 0.18 89.43);
+            box-shadow: inset 0 0 0 1px oklch(0.86 0.18 89.43);
+        }
+
+        .input-area input::placeholder {
+            color: oklch(0.45 0.02 60);
+            opacity: 0.7;
+        }
+
+        button {
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: oklch(0.18 0.04 80);
+            background: oklch(0.86 0.18 89.43);
+            border: 1px solid oklch(0.82 0.015 80);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+
+        button:hover {
+            background: oklch(0.80 0.16 89);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            padding: 16px;
+            color: oklch(0.45 0.02 60);
+        }
+
+        .typing {
+            align-self: flex-start;
+            font-size: 13px;
+            color: oklch(0.45 0.02 60);
+            font-style: italic;
+            padding: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="tool">
+        <div class="tool-bar">
+            <h1>Powered by BsRora</h1>
+        </div>
+
+        <div class="chat-area" id="chatArea"></div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off">
+            <button id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <footer>Efiles · All rights reserved <br> Version(v.03.08.10)</footer>
+
+    <script>
+        // Demo accounts (password = phone number for simplicity)
+        const accounts = {
+            "9493511389": {
+                name: "Phani Yerra",
+                amount: "₹-",
+                date: "-",
+                item: "-",
+                qty: "-"
+            },
+            "9948534444": {
+                name: "Bhargav Akula",
+                amount: "₹-",
+                date: "-",
+                item: "-",
+                qty: "-"
+            }
+        };
+
+        let state = "awaiting_password"; // awaiting_password | main | confirming_account
+        let currentUser = null;
+        let pendingConfirm = false;
+
+        const chatArea = document.getElementById('chatArea');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function addMessage(text, isBot = true) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + (isBot ? 'bot' : 'user');
+            div.innerHTML = text;
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function addTyping() {
+            const div = document.createElement('div');
+            div.className = 'typing';
+            div.id = 'typingIndicator';
+            div.textContent = 'BsRora is typing...';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function removeTyping() {
+            const t = document.getElementById('typingIndicator');
+            if (t) t.remove();
+        }
+
+        function botReply(text, delay = 400) {
+            addTyping();
+            setTimeout(() => {
+                removeTyping();
+                addMessage(text, true);
+            }, delay);
+        }
+
+        // Initial greeting
+        botReply("Welcome, I`m <b>BsRora</b> 👋<br>Enter your password to continue.");
+
+        function handleCommand(cmd) {
+            if (cmd === '/market' || cmd === 'market' || cmd === '1') {
+                showMarket();
+                return true;
+            }
+            if (cmd === '/account' || cmd === 'my account' || cmd === 'account' || cmd === '2') {
+                startAccount();
+                return true;
+            }
+            return false;
+        }
+
+        function showMarket() {
+            botReply("Scanning market rates...", 300);
+            setTimeout(() => {
+                botReply("Current rate: <span class='highlight'>₹245 / gram</span>.");
+            }, 1200);
+        }
+
+        function startAccount() {
+            if (!currentUser) {
+                botReply("Login with your password first.");
+                return;
+            }
+            botReply(`Account found: <b>${currentUser.name}</b><br>Confirm by typing <b>yes</b> or <b>confirm</b> to view full details.`);
+            state = "confirming_account";
+            pendingConfirm = true;
+        }
+
+        function showFullDetails() {
+            const d = currentUser;
+            botReply(
+                `<b>Account Details</b><br><br>` +
+                `Name: <b>${d.name}</b><br>` +
+                `Amount Spent: <span class="highlight">${d.amount}</span><br>` +
+                `Bought at: ${d.item}<br>` +
+                `Bought on: ${d.date}<br>` +
+                `Weight: ${d.qty}<br>`
+            );
+            state = "main";
+            pendingConfirm = false;
+        }
+
+        function processMessage(raw) {
+            const text = raw.trim();
+            const lower = text.toLowerCase();
+
+            if (!text) return;
+
+            addMessage(text, false);
+
+            // Global commands available after login
+            if (state !== "awaiting_password") {
+                if (handleCommand(lower)) return;
+            }
+
+            if (state === "awaiting_password") {
+                if (accounts[text]) {
+                    currentUser = accounts[text];
+                    state = "main";
+                    botReply(
+                        `Login successful! Welcome, <b>${currentUser.name}</b>.<br><br>` +
+                        `Choose an option:<br>` +
+                        `1. <b>Market</b> (or type /market)<br>` +
+                        `2. <b>My Account</b> (or type /account)<br><br>` +  
+                        `You can type <b>/market</b> or <b>/account</b> anytime.`
+                    );
+                } else {
+                    botReply("Invalid password. Please try again.");
+                }
+                return;
+            }
+
+            if (state === "confirming_account") {
+                if (lower === "yes" || lower === "confirm" || lower === "y") {
+                    showFullDetails();
+                } else if (lower === "no" || lower === "cancel") {
+                    botReply("Cancelled. Type <b>/market</b> or <b>/account</b> to continue.");
+                    state = "main";
+                    pendingConfirm = false;
+                } else {
+                    botReply("Type <b>yes</b> to confirm or <b>no</b> to cancel.");
+                }
+                return;
+            }
+
+            // Main state - free text
+            if (state === "main") {
+                botReply(
+                    `I didn't understand that.<br><br>` +
+                    `Available commands:<br>` +
+                    `• <b>/market</b> – Check current rate<br>` +
+                    `• <b>/account</b> – View your account details`
+                );
+            }
+        }
+
+        function sendMessage() {
+            const text = userInput.value;
+            userInput.value = '';
+            processMessage(text);
+            userInput.focus();
+        }
+
+        userInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Focus input on load
+        userInput.focus();
+    </script>
+</body>
+</html>
