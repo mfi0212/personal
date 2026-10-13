@@ -27,10 +27,8 @@
   </style>
 </head>
 <body>
-
 <div class="box">
   <h1>Time & Date Tools</h1>
-
   <!-- 1. Add Days -->
   <div class="section">
     <div class="title">Add/Subtract Days</div>
@@ -38,14 +36,12 @@
     <button onclick="addDays()">Calculate</button>
     <div id="out1" class="output"></div>
   </div>
-
   <!-- 2. Days Until/Ago -->
   <div class="section">
     <div class="title">Days from Today</div>
     <input type="date" id="dateInput" onchange="daysDiff()">
     <div id="out2" class="output"></div>
   </div>
-
   <!-- 3. Date Range -->
   <div class="section">
     <div class="title">Date Range</div>
@@ -54,15 +50,21 @@
     <button onclick="dateRange()">Get End Date</button>
     <div id="out3" class="output"></div>
   </div>
-
-  <!-- 4. Month Name -->
+  <!-- 4. Days Between Two Dates -->
+  <div class="section">
+    <div class="title">Days Between Two Dates</div>
+    <input type="date" id="date1" placeholder="Start date">
+    <input type="date" id="date2" placeholder="End date">
+    <button onclick="daysBetween()">Calculate</button>
+    <div id="out7" class="output"></div>
+  </div>
+  <!-- 5. Month Name -->
   <div class="section">
     <div class="title">Month Name</div>
     <input type="text" id="monthInput" placeholder="Enter number between 1 to 12" oninput="showMonth()">
     <div id="out4" class="output"></div>
   </div>
-
-  <!-- 5. Time Difference -->
+  <!-- 6. Time Difference -->
   <div class="section">
     <div class="title">Time Difference</div>
     <input type="time" id="startTime">
@@ -70,22 +72,18 @@
     <button onclick="timeDiff()">Minutes</button>
     <div id="out5" class="output"></div>
   </div>
-
-  <!-- 6. IST to 24-hour -->
+  <!-- 7. IST to 24-hour -->
   <div class="section">
     <div class="title">IST to 24-hour</div>
     <input type="time" id="istTime" onchange="to24Hour()">
     <div id="out6" class="output"></div>
   </div>
-
 </div>
-
 <script>
 function format(d) {
   return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
 }
 function evalSafe(x) { try { return new Function('return '+x)(); } catch { return NaN; } }
-
 // 1. Add Days
 function addDays() {
   const n = evalSafe(document.getElementById('daysInput').value);
@@ -94,7 +92,6 @@ function addDays() {
   const d = new Date(); d.setDate(d.getDate() + n);
   out.textContent = `${n >= 0 ? '' : ''}${n} days → ${format(d)}`;
 }
-
 // 2. Days Until/Ago
 function daysDiff() {
   const val = document.getElementById('dateInput').value;
@@ -105,7 +102,6 @@ function daysDiff() {
   const diff = Math.ceil((sel - today) / 86400000);
   out.textContent = `${Math.abs(diff)} day${Math.abs(diff)===1?'':'s'} ${diff < 0 ? 'ago' : 'left'} → ${format(sel)}`;
 }
-
 // 3. Date Range
 function dateRange() {
   const s = document.getElementById('startDate').value;
@@ -116,16 +112,27 @@ function dateRange() {
   end.setDate(start.getDate() + n);
   out.innerHTML = `<strong>${n} day${n===1?'':'s'}</strong><br>Start: ${format(start)}<br>End: ${format(end)}`;
 }
-
-// 4. Month Name
+// 4. Days Between Two Dates
+function daysBetween() {
+  const d1 = document.getElementById('date1').value;
+  const d2 = document.getElementById('date2').value;
+  const out = document.getElementById('out7');
+  if (!d1 || !d2) return out.textContent = 'Select both dates';
+  const date1 = new Date(d1);
+  const date2 = new Date(d2);
+  date1.setHours(0,0,0,0);
+  date2.setHours(0,0,0,0);
+  const diff = Math.abs(Math.ceil((date2 - date1) / 86400000));
+  out.textContent = `${diff} day${diff === 1 ? '' : 's'} between ${format(date1)} and ${format(date2)}`;
+}
+// 5. Month Name
 function showMonth() {
   const n = parseInt(document.getElementById('monthInput').value);
   const out = document.getElementById('out4');
   const m = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   out.textContent = (n>=1&&n<=12) ? `Month ${n}: ${m[n-1]}` : '';
 }
-
-// 5. Time Difference
+// 6. Time Difference
 function timeDiff() {
   const s = document.getElementById('startTime').value;
   const e = document.getElementById('endTime').value;
@@ -138,8 +145,7 @@ function timeDiff() {
   const diff = endM - startM;
   out.textContent = `Duration: ${diff} minute${diff===1?'':'s'}`;
 }
-
-// 6. IST to 24-hour
+// 7. IST to 24-hour
 function to24Hour() {
   const time = document.getElementById('istTime').value;
   const out = document.getElementById('out6');
@@ -149,6 +155,5 @@ function to24Hour() {
   out.textContent = `24-hour: ${String(h24).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 </script>
-
 </body>
 </html>
